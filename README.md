@@ -46,10 +46,10 @@ An online platform to help restaurant owners manage their business efficiently. 
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/restaurant-management-system.git
+git clone https://github.com/Mohamed-0-Turki/restaurant-management-system.git
 cd restaurant-management-system
 npm install
-npm start
+npm run dev
 ```
 
 ## 📁 Folder Structure (Frontend)
