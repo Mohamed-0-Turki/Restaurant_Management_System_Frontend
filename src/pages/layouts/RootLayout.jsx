@@ -1,5 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import { Outlet } from 'react-router';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const RootLayout = () => {
   return (
@@ -7,12 +9,12 @@ const RootLayout = () => {
 
       {/* Main Content Wrapper */}
       <div className="flex flex-col w-full">
-        <h1>navbar</h1>
+        <Navbar />
         {/* Page Content + Footer */}
         <div className="w-full min-h-screen flex-grow">
           <Outlet />
         </div>
-        <h1>footer</h1>
+        <Footer />
       </div>
 
       <ToastContainer />

@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={createAppRouter(true, "admin")} />
+        <RouterProvider router={createAppRouter(false, "")} />
       </QueryClientProvider>
     </>
   )
