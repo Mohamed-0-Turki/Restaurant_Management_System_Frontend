@@ -1,1 +1,1 @@
-console.log("auth components");
+export { default as ProtectedRoute } from "./ProtectedRoute"
