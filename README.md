@@ -55,15 +55,28 @@ npm run dev
 ## 📁 Folder Structure (Frontend)
 
 ```
-src/
-│
-├── components/       # Reusable UI components
-├── pages/            # Page views for routes
-├── services/         # API service handlers
-├── context/          # Context API for auth/user management
-├── utils/            # Utility functions
-├── assets/           # Images, icons, etc.
-└── App.jsx
+├── public
+├── src
+│   ├── assets
+│   ├── components
+│   ├── config
+│   ├── hooks
+│   ├── pages
+│   ├── router
+│   ├── services
+│   ├── utils
+│   ├── validation
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── .development.env
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+└── vite.config.js
 ```
 
 ## 🧪 Future Improvements
