@@ -19,15 +19,15 @@ const Navbar = () => {
         </nav>
 
         {/* Call to Action */}
-        <div className="hidden md:block space-x-3">
-          <NavLink to={"/login"} className={() => ""}>
-            <Button size="md" variant="outline" shape="pill" >
-              Login
-            </Button>
-          </NavLink>
+        <div className="block space-x-3">
           <NavLink to={"/signup"} className={() => ""}>
             <Button size="md" variant="primary" shape="pill" >
               signup
+            </Button>
+          </NavLink>
+          <NavLink to={"/login"} className={() => ""}>
+            <Button size="md" variant="outline" shape="pill" >
+              Login
             </Button>
           </NavLink>
         </div>
