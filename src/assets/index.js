@@ -1,0 +1,1 @@
+export { default as reservationImage } from "./reservation.jpg"

@@ -22,13 +22,13 @@ const ButtonVariants = cva(
       size: {
         xs: "text-xs px-2 py-1 h-6",
         sm: "text-sm px-3 py-1.5 h-8",
-        md: "text-base px-4 py-2 h-10",
+        md: "text-base px-4 py-2 h-11",
         lg: "text-lg px-6 py-3 h-12",
         xl: "text-xl px-8 py-4 h-14",
       },
       shape: {
         square: "rounded-none",
-        rounded: "rounded-lg",
+        rounded: "rounded-xl",
         pill: "rounded-full",
       },
       fullWidth: {

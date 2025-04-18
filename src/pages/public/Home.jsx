@@ -1,8 +1,12 @@
 import React from 'react'
-import { Button, CountCard } from '../../components/ui'
-import { Calendar, ShoppingBasket, ShoppingCart, Star, Users } from 'lucide-react'
+import { Button, CountCard, Field, Input, Label } from '../../components/ui'
+import { Calendar, Mail, ShoppingBasket, ShoppingCart, Users } from 'lucide-react'
 
 const Home = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // form submission logic here
+  };
   return (
     <>
       <div className="mt-10 w-full flex flex-wrap gap-3 items-center justify-center">
@@ -53,7 +57,30 @@ const Home = () => {
           icon={<Calendar />}
         />
       </div>
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
+        {/* Email Field */}
+        <Field>
+          <Label size="md">Email Address</Label>
+          <Input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            icon={<Mail size={18} />}
+          />
+        </Field>
 
+        {/* Password Field */}
+        <Field>
+          <Label size="md">Password</Label>
+          <Input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+          />
+        </Field>
+
+        <Button size={"md"} fullWidth>Order Now</Button>
+      </form>
     </>
   )
 }
