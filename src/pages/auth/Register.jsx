@@ -21,7 +21,7 @@ const Register = () => {
 
   return (
     <>
-      {role ?? <ChooseAccount />}
+      {!role ? <ChooseAccount /> : null}
 
       {role === "customer" && (
         <SignupCustomerForm />

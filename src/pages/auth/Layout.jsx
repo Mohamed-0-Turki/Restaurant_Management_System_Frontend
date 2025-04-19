@@ -4,7 +4,7 @@ import { reservationImage } from "../../assets";
 const Layout = () => {
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex lg:h-screen h-fit">
     {/* Left image */}
     <div className="hidden md:block md:w-1/2">
       <img

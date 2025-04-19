@@ -26,7 +26,7 @@ const SignupManagerForm = () => {
   };
 
   return (
-    <form className="w-full max-w-md space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form className="w-full max-w-3xl space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <FormHeading>Create a Restaurant Manager Account</FormHeading>
 
       {/* Restaurant Name */}
@@ -49,8 +49,7 @@ const SignupManagerForm = () => {
           {...register("location")}
           isError={!!errors.location}
           placeholder="Enter the restaurant location"
-          rows={3}
-          
+          rows={2}
         />
         {errors.location && (
           <InputErrorMessage>{errors.location.message}</InputErrorMessage>
@@ -64,68 +63,71 @@ const SignupManagerForm = () => {
           {...register("description")}
           isError={!!errors.description}
           placeholder="Write a short description"
-          rows={6}
+          rows={3}
         />
         {errors.description && (
           <InputErrorMessage>{errors.description.message}</InputErrorMessage>
         )}
       </Field>
 
-      {/* Manager Name */}
-      <Field>
-        <Label>Manager Name</Label>
-        <Input
-          {...register("managerName")}
-          isError={!!errors.managerName}
-          placeholder="Enter manager full name"
-        />
-        {errors.managerName && (
-          <InputErrorMessage>{errors.managerName.message}</InputErrorMessage>
-        )}
-      </Field>
+      {/* Manager Name + Manager Email */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Field>
+          <Label>Manager Name</Label>
+          <Input
+            {...register("managerName")}
+            isError={!!errors.managerName}
+            placeholder="Enter manager full name"
+          />
+          {errors.managerName && (
+            <InputErrorMessage>{errors.managerName.message}</InputErrorMessage>
+          )}
+        </Field>
 
-      {/* Manager Email */}
-      <Field>
-        <Label>Manager Email</Label>
-        <Input
-          {...register("managerEmail")}
-          isError={!!errors.managerEmail}
-          type="email"
-          placeholder="Enter manager email"
-        />
-        {errors.managerEmail && (
-          <InputErrorMessage>{errors.managerEmail.message}</InputErrorMessage>
-        )}
-      </Field>
+        <Field>
+          <Label>Manager Email</Label>
+          <Input
+            {...register("managerEmail")}
+            isError={!!errors.managerEmail}
+            type="email"
+            placeholder="Enter manager email"
+          />
+          {errors.managerEmail && (
+            <InputErrorMessage>{errors.managerEmail.message}</InputErrorMessage>
+          )}
+        </Field>
+      </div>
 
-      {/* Password */}
-      <Field>
-        <Label>Password</Label>
-        <Input
-          {...register("password")}
-          isError={!!errors.password}
-          type="password"
-          placeholder="Enter password"
-        />
-        {errors.password && (
-          <InputErrorMessage>{errors.password.message}</InputErrorMessage>
-        )}
-      </Field>
+      {/* Password + Confirm Password */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Field>
+          <Label>Password</Label>
+          <Input
+            {...register("password")}
+            isError={!!errors.password}
+            type="password"
+            placeholder="Enter password"
+          />
+          {errors.password && (
+            <InputErrorMessage>{errors.password.message}</InputErrorMessage>
+          )}
+        </Field>
 
-      {/* Confirm Password */}
-      <Field>
-        <Label>Confirm Password</Label>
-        <Input
-          {...register("confirmPassword")}
-          isError={!!errors.confirmPassword}
-          type="password"
-          placeholder="Confirm your password"
-        />
-        {errors.confirmPassword && (
-          <InputErrorMessage>{errors.confirmPassword.message}</InputErrorMessage>
-        )}
-      </Field>
+        <Field>
+          <Label>Confirm Password</Label>
+          <Input
+            {...register("confirmPassword")}
+            isError={!!errors.confirmPassword}
+            type="password"
+            placeholder="Confirm your password"
+          />
+          {errors.confirmPassword && (
+            <InputErrorMessage>{errors.confirmPassword.message}</InputErrorMessage>
+          )}
+        </Field>
+      </div>
 
+      {/* Submit */}
       <Button size="md" fullWidth>
         Sign Up
       </Button>
