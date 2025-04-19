@@ -34,11 +34,11 @@ const SignupManagerForm = () => {
         <Label>Restaurant Name</Label>
         <Input
           {...register("name")}
-          isError={!!errors.restaurantName}
+          isError={!!errors.name}
           placeholder="Enter your restaurant's name"
         />
-        {errors.restaurantName && (
-          <InputErrorMessage>{errors.restaurantName.message}</InputErrorMessage>
+        {errors.name && (
+          <InputErrorMessage>{errors.name.message}</InputErrorMessage>
         )}
       </Field>
 
