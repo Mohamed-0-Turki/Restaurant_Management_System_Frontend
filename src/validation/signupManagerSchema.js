@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const signupManagerSchema = yup.object().shape({
-  restaurantName: yup
+  name: yup
     .string()
     .required("Restaurant name is required")
     .min(2, "Restaurant name should be at least 2 characters long")
