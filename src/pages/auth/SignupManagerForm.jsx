@@ -1,0 +1,136 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Button,
+  Field,
+  FormHeading,
+  Input,
+  InputErrorMessage,
+  Label,
+  Textarea,
+} from "../../components/ui";
+import { signupManagerSchema } from "../../validation/signupManagerSchema";
+import { useForm } from "react-hook-form";
+
+const SignupManagerForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signupManagerSchema),
+    mode: "onChange",
+  });
+
+  const onSubmit = (data) => {
+    console.log(data); // Handle form submission
+  };
+
+  return (
+    <form className="w-full max-w-md space-y-6" onSubmit={handleSubmit(onSubmit)}>
+      <FormHeading>Create a Restaurant Manager Account</FormHeading>
+
+      {/* Restaurant Name */}
+      <Field>
+        <Label>Restaurant Name</Label>
+        <Input
+          {...register("restaurantName")}
+          isError={!!errors.restaurantName}
+          placeholder="Enter your restaurant's name"
+        />
+        {errors.restaurantName && (
+          <InputErrorMessage>{errors.restaurantName.message}</InputErrorMessage>
+        )}
+      </Field>
+
+      {/* Location (Textarea) */}
+      <Field>
+        <Label>Location</Label>
+        <Textarea
+          {...register("location")}
+          isError={!!errors.location}
+          placeholder="Enter the restaurant location"
+          rows={3}
+          
+        />
+        {errors.location && (
+          <InputErrorMessage>{errors.location.message}</InputErrorMessage>
+        )}
+      </Field>
+
+      {/* Description (Textarea) */}
+      <Field>
+        <Label>Description</Label>
+        <Textarea
+          {...register("description")}
+          isError={!!errors.description}
+          placeholder="Write a short description"
+          rows={6}
+        />
+        {errors.description && (
+          <InputErrorMessage>{errors.description.message}</InputErrorMessage>
+        )}
+      </Field>
+
+      {/* Manager Name */}
+      <Field>
+        <Label>Manager Name</Label>
+        <Input
+          {...register("managerName")}
+          isError={!!errors.managerName}
+          placeholder="Enter manager full name"
+        />
+        {errors.managerName && (
+          <InputErrorMessage>{errors.managerName.message}</InputErrorMessage>
+        )}
+      </Field>
+
+      {/* Manager Email */}
+      <Field>
+        <Label>Manager Email</Label>
+        <Input
+          {...register("managerEmail")}
+          isError={!!errors.managerEmail}
+          type="email"
+          placeholder="Enter manager email"
+        />
+        {errors.managerEmail && (
+          <InputErrorMessage>{errors.managerEmail.message}</InputErrorMessage>
+        )}
+      </Field>
+
+      {/* Password */}
+      <Field>
+        <Label>Password</Label>
+        <Input
+          {...register("password")}
+          isError={!!errors.password}
+          type="password"
+          placeholder="Enter password"
+        />
+        {errors.password && (
+          <InputErrorMessage>{errors.password.message}</InputErrorMessage>
+        )}
+      </Field>
+
+      {/* Confirm Password */}
+      <Field>
+        <Label>Confirm Password</Label>
+        <Input
+          {...register("confirmPassword")}
+          isError={!!errors.confirmPassword}
+          type="password"
+          placeholder="Confirm your password"
+        />
+        {errors.confirmPassword && (
+          <InputErrorMessage>{errors.confirmPassword.message}</InputErrorMessage>
+        )}
+      </Field>
+
+      <Button size="md" fullWidth>
+        Sign Up
+      </Button>
+    </form>
+  );
+};
+
+export default SignupManagerForm;

@@ -1,7 +1,7 @@
 import { Route } from "react-router";
 import { ProtectedRoute } from "../components/auth";
 import { RootLayout } from "../pages/layouts";
-import { AuthLayout, LoginPage, SignupPage } from "../pages/auth";
+import { AuthLayout, LoginPage, RegisterPage } from "../pages/auth";
 
 export const authRoutes = (isLoggedIn) => (
   <>
@@ -15,7 +15,7 @@ export const authRoutes = (isLoggedIn) => (
   >
     <Route element={<AuthLayout />}>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/choose-account" element={<RegisterPage />} />
     </Route>
   </Route>
   </>

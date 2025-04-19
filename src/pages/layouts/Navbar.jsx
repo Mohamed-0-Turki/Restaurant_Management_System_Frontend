@@ -20,7 +20,7 @@ const Navbar = () => {
 
         {/* Call to Action */}
         <div className="block space-x-3">
-          <NavLink to={"/signup"} className={() => ""}>
+          <NavLink to={"/choose-account"} className={() => ""}>
             <Button size="md" variant="primary" shape="pill" >
               signup
             </Button>
