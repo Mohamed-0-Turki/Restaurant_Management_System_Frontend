@@ -97,36 +97,7 @@ const SignupManagerForm = () => {
           )}
         </Field>
       </div>
-
-      {/* Password + Confirm Password */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Field>
-          <Label>Password</Label>
-          <Input
-            {...register("password")}
-            isError={!!errors.password}
-            type="password"
-            placeholder="Enter password"
-          />
-          {errors.password && (
-            <InputErrorMessage>{errors.password.message}</InputErrorMessage>
-          )}
-        </Field>
-
-        <Field>
-          <Label>Confirm Password</Label>
-          <Input
-            {...register("confirmPassword")}
-            isError={!!errors.confirmPassword}
-            type="password"
-            placeholder="Confirm your password"
-          />
-          {errors.confirmPassword && (
-            <InputErrorMessage>{errors.confirmPassword.message}</InputErrorMessage>
-          )}
-        </Field>
-      </div>
-
+      
       {/* Submit */}
       <Button size="md" fullWidth>
         Sign Up
