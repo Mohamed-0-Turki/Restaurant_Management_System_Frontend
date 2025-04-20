@@ -5,13 +5,12 @@ import Footer from './Footer';
 
 const RootLayout = () => {
   return (
-    <div className="min-h-screen flex">
-
+    <div className="flex">
       {/* Main Content Wrapper */}
       <div className="flex flex-col w-full">
         <Navbar />
         {/* Page Content + Footer */}
-        <div className="w-full min-h-screen flex-grow">
+        <div className="w-full flex-grow">
           <Outlet />
         </div>
         <Footer />
