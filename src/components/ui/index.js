@@ -1,6 +1,7 @@
 export { default as Button } from "./Button"
 export { default as CountCard } from "./CountCard"
 export { default as FutureCard } from "./FutureCard"
+export { default as StatusBadge } from "./StatusBadge"
 export * from "./Form"
 export * from "./Table"
 export * from "./Sidebar"
