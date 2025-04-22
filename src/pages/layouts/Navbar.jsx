@@ -14,7 +14,7 @@ const Navbar = () => {
         <nav className="hidden md:flex gap-6 items-center text-md font-medium text-gray-700">
           <NavLink to="/" className="hover:text-black transition-colors">Home</NavLink>
           <a href="#" className="hover:text-black transition-colors">About</a>
-          <a href="#" className="hover:text-black transition-colors">Restaurants</a>
+          <NavLink to="/restaurants" className="hover:text-black transition-colors">Restaurants</NavLink>
           <a href="#" className="hover:text-black transition-colors">Contact</a>
         </nav>
 

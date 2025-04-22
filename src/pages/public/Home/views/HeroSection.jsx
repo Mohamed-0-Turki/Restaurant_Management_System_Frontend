@@ -1,5 +1,5 @@
-import { foodDishImage } from '../../../assets'
-import { Button } from '../../../components/ui'
+import { foodDishImage } from "../../../../assets"
+import { Button } from "../../../../components/ui"
 
 const HeroSection = () => {
   return (

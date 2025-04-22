@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 const RootLayout = () => {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       {/* Main Content Wrapper */}
       <div className="flex flex-col w-full">
         <Navbar />
