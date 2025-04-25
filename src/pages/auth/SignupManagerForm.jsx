@@ -10,8 +10,13 @@ import {
 } from "../../components/ui";
 import { signupManagerSchema } from "../../validation/signupManagerSchema";
 import { useForm } from "react-hook-form";
+import { registerManagerService } from "../../services/auth.services";
+import { showToast } from "../../utils/index.utils";
+import { useNavigate } from "react-router";
 
 const SignupManagerForm = () => {
+  const navigate = useNavigate();  // Create the navigate function from React Router
+
   const {
     register,
     handleSubmit,
@@ -21,8 +26,28 @@ const SignupManagerForm = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    console.log(data); // Handle form submission
+  const onSubmit = async (data) => {
+    try {
+      const response = await registerManagerService(
+        data.name, 
+        data.description, 
+        data.location,
+        data.managerName,
+        data.managerEmail,
+      );
+      if (response.status === 202) {
+        showToast("success", "User registered successfully.");
+        navigate("/login");
+      }
+    } catch (error) {
+      if (error.data?.errors && Array.isArray(error.data.errors)) {
+        error.data.errors.forEach((err) => {
+          showToast("error", err);
+        });
+      } else {
+        showToast("error", "Something went wrong. Please try again.");
+      }
+    }
   };
 
   return (

@@ -27,3 +27,19 @@ export const registerCustomerService = async (name, email, password) => {
   }
 };
 
+export const registerManagerService = async (name, description, location, managerName, managerEmail) => {
+  try {
+    const response = await axiosInstance.post("/register-manager", {
+      name,
+      description,
+      location,
+      managerName,
+      managerEmail,
+    });
+    
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+

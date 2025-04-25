@@ -1,5 +1,5 @@
 import { ToastContainer } from 'react-toastify';
-import { Outlet } from 'react-router';
+import { Outlet, ScrollRestoration } from 'react-router';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -16,7 +16,7 @@ const RootLayout = () => {
         </div>
         <Footer />
       </div>
-
+      <ScrollRestoration />
       <ToastContainer />
     </div>
   );
