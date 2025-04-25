@@ -20,8 +20,8 @@ const authSlice = createSlice({
     user: null,
     loading: false,
     error: null,
-    token: null,  // Store token if needed
-    role: null,  // Store user role
+    token: null,
+    role: null,
     userId: null,  // Store user ID
   },
   reducers: {
@@ -52,9 +52,9 @@ const authSlice = createSlice({
 
         state.user = decodedToken; // Optionally store the entire decoded token
       })
-      .addCase(loginAction.rejected, (state, action) => {
+      .addCase(loginAction.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload || "Login failed";
+        state.error =  "Login failed";
         showToast("error", "Login failed, please try again.");
       });
   },

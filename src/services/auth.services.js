@@ -13,3 +13,17 @@ export const loginService = async (email, password) => {
   }
 };
 
+export const registerCustomerService = async (name, email, password) => {
+  try {
+    const response = await axiosInstance.post("/register-customer", {
+      name,
+      email,
+      password,
+    });
+    
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+

@@ -2,16 +2,36 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Field, FormHeading, Input, InputErrorMessage, Label } from "../../components/ui";
 import { signupCustomerSchema } from "../../validation/signupCustomerSchema";
 import { useForm } from "react-hook-form";
+import { registerCustomerService } from "../../services/auth.services";
+import { useNavigate } from "react-router";
+import { showToast } from "../../utils/index.utils";
 
 const SignupCustomerForm = () => {
+  const navigate = useNavigate();  // Create the navigate function from React Router
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(signupCustomerSchema),
     mode: "onChange", // Trigger validation on field change
   });
 
-  const onSubmit = (data) => {
-    console.log(data); // Handle form submission
+  const onSubmit = async (data) => {
+    try {
+      const response = await registerCustomerService(data.name, data.email, data.password);
+      if (response.status === 202) {
+        showToast("success", "User registered successfully.");
+        navigate("/login");
+      }
+    } catch (error) {
+      if (error.data?.errors && Array.isArray(error.data.errors)) {
+        error.data.errors.forEach((err) => {
+          showToast("error", err);
+        });
+      } else {
+        showToast("error", "Something went wrong. Please try again.");
+      }
+    }
   };
+  
 
   return (
     <>
