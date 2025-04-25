@@ -1,23 +1,28 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-import {
-  RouterProvider,
-} from "react-router";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider } from "react-router";
+import { Provider, useSelector } from "react-redux";  // Importing the Redux Provider
 import createAppRouter from './router';
+import store from './store/store';
 
-const queryClient = new QueryClient()
+// Create a query client for react-query
+const queryClient = new QueryClient();
 
+function AppWrapper() {
+  const { userId, role } = useSelector((state) => state.auth);  // Now inside a component
+
+  return (
+    <QueryClientProvider client={queryClient}>  {/* Wrap with QueryClientProvider */}
+      <RouterProvider router={createAppRouter(!!userId, role)} />  {/* Router for your app */}
+    </QueryClientProvider>
+  );
+}
 
 function App() {
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={createAppRouter(false, "")} />
-      </QueryClientProvider>
-    </>
-  )
+    <Provider store={store}>  {/* Wrap with Provider for Redux */}
+      <AppWrapper />  {/* This component now uses useSelector */}
+    </Provider>
+  );
 }
 
-export default App
+export default App;

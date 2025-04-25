@@ -1,7 +1,18 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { Button } from "../../components/ui";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/slices/authSlice";
 
 const Navbar = () => {
+  const { userId } = useSelector((state) => state.auth);  // Accessing auth state from Redux
+  const dispatch = useDispatch();
+  const navigate = useNavigate();  // Create the navigate function from React Router
+
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action
+    navigate('/login');
+  };
+
   return (
     <header className="w-full bg-white shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -18,19 +29,27 @@ const Navbar = () => {
           <a href="#" className="hover:text-black transition-colors">Contact</a>
         </nav>
 
-        {/* Call to Action */}
         <div className="block space-x-3">
-          <NavLink to={"/choose-account"} className={() => ""}>
-            <Button size="md" variant="primary" shape="pill" >
-              signup
-            </Button>
-          </NavLink>
-          <NavLink to={"/login"} className={() => ""}>
-            <Button size="md" variant="outline" shape="pill" >
-              Login
-            </Button>
-          </NavLink>
+        {userId ? (
+          <Button size="md" shape="pill" onClick={handleLogout}>
+            logout
+          </Button>
+        ) : (
+          <>
+            <NavLink to={"/choose-account"} className={() => ""}>
+              <Button size="md" variant="primary" shape="pill">
+                Signup
+              </Button>
+            </NavLink>
+            <NavLink to={"/login"} className={() => ""}>
+              <Button size="md" variant="outline" shape="pill">
+                Login
+              </Button>
+            </NavLink>
+          </>
+        )}
         </div>
+
       </div>
     </header>
   );
