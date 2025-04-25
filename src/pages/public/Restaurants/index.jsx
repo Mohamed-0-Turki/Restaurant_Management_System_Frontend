@@ -12,7 +12,7 @@ const Restaurants = () => {
       location: 'Downtown, Cairo',
       description: 'Experience the finest blend of spices and culinary traditions.',
       image: foodDishImage,
-      link: "/menu"
+      link: "/restaurants/1/menu"
     },
     {
       name: 'La Piazza',

@@ -4,16 +4,16 @@ import { capitalizeFirstLetter } from "../../utils/index.utils";
 const MenuTabs = ({ tabs = [] }) => {
   const newTabs = ["all", ...tabs];
   const [searchParams, setSearchParams] = useSearchParams();
-  const category = searchParams.get("category") || "";
+  const category = searchParams.get("category") || "all";
 
   const handleTabClick = (tab) => {
     setSearchParams({ category: tab });
   };
 
   return (
-    <div className="text-center mt-10">
+    <div className="w-75 sm:w-full text-center mt-10">
       {/* Tabs */}
-      <div className="flex justify-center space-x-8 mb-4">
+      <div className="flex justify-center max-sm:overflow-x-scroll space-x-5 mb-4">
         {newTabs.map((tab) => (
           <button
             key={tab}
