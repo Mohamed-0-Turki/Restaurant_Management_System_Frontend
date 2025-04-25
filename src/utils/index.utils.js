@@ -21,3 +21,8 @@ export const truncateText = (text, maxLength = 20, withEllipsis = true) => {
     ? text.slice(0, maxLength) + (withEllipsis ? "..." : "")
     : text;
 };
+
+export const capitalizeFirstLetter = (str) => {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
