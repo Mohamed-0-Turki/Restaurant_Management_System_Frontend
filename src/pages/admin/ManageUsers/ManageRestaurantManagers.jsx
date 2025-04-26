@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { ActionCard, Button, CountCard, Header, SectionHeader, Table, TableCell, TableRow } from '../../../components/ui'
-import { CirclePlus, Edit, TrashIcon } from 'lucide-react'
+import { CirclePlus, Edit, TrashIcon, UserCog, Users } from 'lucide-react'
 import { useGetAllUsers } from '../../../hooks/admin/useUserHook';
-import { AddUserPopup, DeleteUserPopup, EditUserPopup } from './views';
+import { DeleteUserPopup, EditUserPopup } from './views';
+import { useNavigate } from 'react-router';
 
-const ManageRestaurantManagersPage = () => {
-  const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
+const ManageRestaurantManagers = () => {
+  const navigate = useNavigate();
+
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
 
@@ -21,30 +23,46 @@ const ManageRestaurantManagersPage = () => {
 
   return (
     <div className="sm:p-5 p-3 space-y-5">
-      <Header heading="Manage Users" subtitle="Add, edit, or delete users for the system." />
+      <Header heading="Manage Resturant Managers" subtitle="Add, edit, or delete resturant managers for the system." />
       
-      <div className="space-y-5 mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+      <div className="space-y-5 mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-2xl">
         <CountCard 
-          title="Total Users"
-          description="Current active users"
+          title="Total Resturant Managers"
+          description="Current approved resturant managers"
           count={users.length}
           icon={<CirclePlus />}
         />
-        <ActionCard
-          icon={<CirclePlus />}
-          iconBgColor="bg-[#D7263D]"
-          iconColor="text-[#ffffff]"
-          title="Add New User"
-          description="Click the button below to add a new user"
-        >
-          <Button fullWidth onClick={() => setIsAddPopupOpen(true)}>
-            Add User
-          </Button>
-        </ActionCard>
+        <div className="flex flex-col sm:flex-row gap-4 mx-auto w-full max-w-fit">
+          <ActionCard
+            icon={<Users />}
+            iconBgColor="bg-blue-600"
+            iconColor="text-white"
+            title="View Customers"
+            description="Click below to view all registered customers"
+            className="flex-1"
+          >
+            <Button fullWidth onClick={() => navigate("/admin/customers")} variant='info'>
+              Go to Customers
+            </Button>
+          </ActionCard>
+
+          <ActionCard
+            icon={<UserCog />}
+            iconBgColor="bg-green-600"
+            iconColor="text-white"
+            title="View Restaurant Managers"
+            description="Click below to view all restaurant managers"
+            className="flex-1"
+          >
+            <Button fullWidth onClick={() => navigate("/admin/restaurant-managers")} variant='success'>
+              Go to Managers
+            </Button>
+          </ActionCard>
+        </div>
       </div>
 
       <div className="bg-white shadow-md space-y-5 p-5 rounded-lg">
-        <SectionHeader title="Manage Users" description="Here you can view and manage all users." />
+        <SectionHeader title="Manage Resturant Managers" description="Here you can view and manage all approved resturant managers." />
 
         <div className="w-full overflow-x-auto">
           <Table columns={["#ID", "Name", "Email", "Role", "Action"]}>
@@ -76,7 +94,7 @@ const ManageRestaurantManagersPage = () => {
             ) : (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
-                  No users found.
+                  No approved resturant managers found.
                 </TableCell>
               </TableRow>
             )}
@@ -84,10 +102,6 @@ const ManageRestaurantManagersPage = () => {
         </div>
       </div>
 
-      <AddUserPopup
-        isOpen={isAddPopupOpen}
-        handleClose={() => setIsAddPopupOpen(false)}
-      />
       <EditUserPopup
         isOpen={isEditPopupOpen}
         handleClose={() => setIsEditPopupOpen(false)}
@@ -102,4 +116,4 @@ const ManageRestaurantManagersPage = () => {
   )
 }
 
-export default ManageRestaurantManagersPage;
+export default ManageRestaurantManagers;

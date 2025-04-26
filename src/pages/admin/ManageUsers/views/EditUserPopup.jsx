@@ -3,17 +3,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Field, Input, InputErrorMessage, Label, Popup } from "../../../../components/ui";
 import { userSchema } from "../../../../validation/userSchema";
 import { useManageUsers } from "../../../../hooks/admin/useUserHook";
+import { useEffect } from "react"; // NEW
 
 const EditUserPopup = ({ isOpen, handleClose, defaultValues }) => {
+
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(userSchema),
     defaultValues: {
-      name: defaultValues?.name || "",
-      email: defaultValues?.email || "",
+      name: defaultValues?.name || '',
+      email: defaultValues?.email || '',
     },
   });
 
   const { updateUser, isUpdating } = useManageUsers();
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset({
+        name: defaultValues.name,
+        email: defaultValues.email,
+      });
+    }
+  }, [defaultValues, reset]);
 
   const onSubmit = (data) => {
     updateUser(
