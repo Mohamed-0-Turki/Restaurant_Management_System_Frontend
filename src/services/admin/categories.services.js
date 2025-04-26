@@ -46,3 +46,20 @@ export const deleteCategoryService = async (id, token) => {
     throw error.response?.data || error;
   }
 };
+
+export const updateCategoryService = async (id, name, token) => {
+  try {
+    const response = await axiosInstance.put(
+      `/admin/categories/${id}`,
+      { name },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

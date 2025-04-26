@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
 import { ActionCard, Button, CountCard, Header, Input, SectionHeader, Table, TableCell, TableRow } from '../../../components/ui'
 import { CirclePlus, CookingPot, Edit, Search, TrashIcon } from 'lucide-react'
-import { AddCategoryPopup, DeleteCategoryPopup } from './views';
+import { AddCategoryPopup, DeleteCategoryPopup, EditCategoryPopup } from './views';
 import { useGetAllCategories } from '../../../hooks/admin/useCategory';
 
 const ManageFoodCategories = () => {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+
   const [selectedID, setSelectedID] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const { categories } = useGetAllCategories();
+
+  const handleEditClick = (category) => {
+    setSelectedCategory(category);
+    setIsEditPopupOpen(true);
+  };
 
   return (
     <div className="sm:p-5 p-3 space-y-5">
@@ -42,13 +50,24 @@ const ManageFoodCategories = () => {
           <Table columns={["#ID", "Name", "Action"]}>
             {categories.length > 0 ? (
               categories.map((category, index) => (
-                <TableRow key={category.id}>
-                  <TableCell>{index + 1}</TableCell>
+                <TableRow key={index}>
+                  <TableCell>{category.id}</TableCell>
                   <TableCell>{category.name}</TableCell>
                   <TableCell className='flex gap-3'>
-                    <Button size='sm' variant='info' icon={<Edit className='w-full h-full' />} />
-                    <Button size='sm' icon={<TrashIcon className='w-full h-full' />} onClick={() => { setIsDeletePopupOpen(true) 
-                      setSelectedID(category.id)}} />
+                    <Button 
+                      size='sm' 
+                      variant='info' 
+                      icon={<Edit className='w-full h-full' />} 
+                      onClick={() => handleEditClick(category)}
+                    />
+                    <Button 
+                      size='sm' 
+                      icon={<TrashIcon className='w-full h-full' />} 
+                      onClick={() => { 
+                        setIsDeletePopupOpen(true);
+                        setSelectedID(category.id);
+                      }} 
+                    />
                   </TableCell>
                 </TableRow>
               ))
@@ -66,6 +85,11 @@ const ManageFoodCategories = () => {
       <AddCategoryPopup
         isOpen={isAddPopupOpen}
         handleClose={() => setIsAddPopupOpen(false)}
+      />
+      <EditCategoryPopup
+        isOpen={isEditPopupOpen}
+        handleClose={() => setIsEditPopupOpen(false)}
+        defaultValues={selectedCategory}
       />
       <DeleteCategoryPopup
         isOpen={isDeletePopupOpen}

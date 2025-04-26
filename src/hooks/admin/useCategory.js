@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { createCategoryService, deleteCategoryService, fetchAllCategoriesService } from "../../services/admin/categories.services";
+import { createCategoryService, deleteCategoryService, fetchAllCategoriesService, updateCategoryService } from "../../services/admin/categories.services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { showToast } from "../../utils/index.utils";
 
@@ -32,8 +32,30 @@ const useManageCategories = () => {
       showToast("success", "Category created successfully");
     },
     onError: (error) => {
-      const message = error?.message || "Something went wrong";
-      showToast("error", message);
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach((err) => {
+          showToast("error", err);
+        });
+      } else {
+        showToast("error", "Something went wrong. Please try again.");
+      }
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, name }) => updateCategoryService(id, name, token),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [CATEGORIES_QUERY_KEY] });
+      showToast("success", "Category updated successfully");
+    },
+    onError: (error) => {
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach((err) => {
+          showToast("error", err);
+        });
+      } else {
+        showToast("error", "Something went wrong. Please try again.");
+      }
     },
   });
 
@@ -44,8 +66,13 @@ const useManageCategories = () => {
       showToast("success", "Category deleted successfully");
     },
     onError: (error) => {
-      const message = error?.message || "Something went wrong";
-      showToast("error", message);
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach((err) => {
+          showToast("error", err);
+        });
+      } else {
+        showToast("error", "Something went wrong. Please try again.");
+      }
     },
   });
 
@@ -53,6 +80,9 @@ const useManageCategories = () => {
     addCategory: addMutation.mutate,
     isAdding: addMutation.isPending,
 
+    updateCategory: updateMutation.mutate,
+    isUpdating: updateMutation.isPending,
+    
     deleteCategory: deleteMutation.mutate,
     isDeleting: deleteMutation.isPending,
   };
