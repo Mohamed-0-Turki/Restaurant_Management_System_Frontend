@@ -1,1 +1,1 @@
-console.log("admin");
+export { default as ManageFoodCategoriesPage } from "./ManageFoodCategories"
