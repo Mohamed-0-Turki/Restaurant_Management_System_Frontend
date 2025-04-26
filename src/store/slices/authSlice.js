@@ -75,7 +75,7 @@ const authSlice = createSlice({
       .addCase(loginAction.rejected, (state) => {
         state.loading = false;
         state.error = "Login failed";
-        showToast("error", "Login failed, please try again.");
+        showToast("error", "Invaild email or password, please try again.");
       });
   },
 });
