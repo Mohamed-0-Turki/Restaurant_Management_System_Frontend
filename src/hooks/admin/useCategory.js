@@ -26,7 +26,7 @@ const useManageCategories = () => {
   const queryClient = useQueryClient();
   
   const addMutation = useMutation({
-    mutationFn: ({ name }) => createCategoryService(token, name),
+    mutationFn: ({ name }) => createCategoryService(name,token),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [CATEGORIES_QUERY_KEY] });
       showToast("success", "Category created successfully");
