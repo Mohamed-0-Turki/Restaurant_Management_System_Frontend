@@ -1,71 +1,73 @@
 import React, { useState } from 'react'
-import { ActionCard, Button, CountCard, Header, Input, SectionHeader, Table, TableCell, TableRow } from '../../../components/ui'
-import { CirclePlus, CookingPot, Edit, Search, TrashIcon } from 'lucide-react'
-import { AddCategoryPopup, DeleteCategoryPopup, EditCategoryPopup } from './views';
-import { useGetAllCategories } from '../../../hooks/admin/useCategoryHook';
+import { ActionCard, Button, CountCard, Header, SectionHeader, Table, TableCell, TableRow } from '../../../components/ui'
+import { CirclePlus, Edit, TrashIcon } from 'lucide-react'
+import { useGetAllUsers } from '../../../hooks/admin/useUserHook';
+import { AddUserPopup, DeleteUserPopup, EditUserPopup } from './views';
 
-const ManageFoodCategories = () => {
+const ManageRestaurantManagersPage = () => {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
 
   const [selectedID, setSelectedID] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const { categories } = useGetAllCategories();
+  const { users } = useGetAllUsers("Manager");
 
-  const handleEditClick = (category) => {
-    setSelectedCategory(category);
+  const handleEditClick = (user) => {
+    setSelectedUser(user);
     setIsEditPopupOpen(true);
   };
 
   return (
     <div className="sm:p-5 p-3 space-y-5">
-      <Header heading="Manage Food Categories" subtitle="Add, edit, or delete food categories for your restaurant." />
+      <Header heading="Manage Users" subtitle="Add, edit, or delete users for the system." />
       
       <div className="space-y-5 mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
         <CountCard 
-          title="Total Categories"
-          description="Current active food categories"
-          count={categories.length}
-          icon={<CookingPot />}
+          title="Total Users"
+          description="Current active users"
+          count={users.length}
+          icon={<CirclePlus />}
         />
         <ActionCard
           icon={<CirclePlus />}
           iconBgColor="bg-[#D7263D]"
           iconColor="text-[#ffffff]"
-          title="Add New Category"
-          description="Click the button below to add a new food category"
+          title="Add New User"
+          description="Click the button below to add a new user"
         >
           <Button fullWidth onClick={() => setIsAddPopupOpen(true)}>
-            Add Category
+            Add User
           </Button>
         </ActionCard>
       </div>
 
       <div className="bg-white shadow-md space-y-5 p-5 rounded-lg">
-        <SectionHeader title="Manage Categories" description="Here you can view and manage all food categories." />
+        <SectionHeader title="Manage Users" description="Here you can view and manage all users." />
 
         <div className="w-full overflow-x-auto">
-          <Table columns={["#ID", "Name", "Action"]}>
-            {categories.length > 0 ? (
-              categories.map((category, index) => (
+          <Table columns={["#ID", "Name", "Email", "Role", "Action"]}>
+            {users.length > 0 ? (
+              users.map((user, index) => (
                 <TableRow key={index}>
-                  <TableCell>{category.id}</TableCell>
-                  <TableCell>{category.name}</TableCell>
+                  <TableCell>{user.id}</TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
                   <TableCell className='flex gap-3'>
                     <Button 
                       size='sm' 
                       variant='info' 
                       icon={<Edit className='w-full h-full' />} 
-                      onClick={() => handleEditClick(category)}
+                      onClick={() => handleEditClick(user)}
                     />
                     <Button 
                       size='sm' 
                       icon={<TrashIcon className='w-full h-full' />} 
                       onClick={() => { 
                         setIsDeletePopupOpen(true);
-                        setSelectedID(category.id);
+                        setSelectedID(user.id);
                       }} 
                     />
                   </TableCell>
@@ -73,8 +75,8 @@ const ManageFoodCategories = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={3} className="text-center">
-                  No categories found.
+                <TableCell colSpan={5} className="text-center">
+                  No users found.
                 </TableCell>
               </TableRow>
             )}
@@ -82,22 +84,22 @@ const ManageFoodCategories = () => {
         </div>
       </div>
 
-      <AddCategoryPopup
+      <AddUserPopup
         isOpen={isAddPopupOpen}
         handleClose={() => setIsAddPopupOpen(false)}
       />
-      <EditCategoryPopup
+      <EditUserPopup
         isOpen={isEditPopupOpen}
         handleClose={() => setIsEditPopupOpen(false)}
-        defaultValues={selectedCategory}
+        defaultValues={selectedUser}
       />
-      <DeleteCategoryPopup
+      <DeleteUserPopup
         isOpen={isDeletePopupOpen}
         handleClose={() => setIsDeletePopupOpen(false)}
-        categoryId={selectedID}
+        userId={selectedID}
       />
     </div>
   )
 }
 
-export default ManageFoodCategories;
+export default ManageRestaurantManagersPage;

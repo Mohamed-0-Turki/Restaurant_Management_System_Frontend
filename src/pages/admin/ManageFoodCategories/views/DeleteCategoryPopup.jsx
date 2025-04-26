@@ -1,5 +1,5 @@
 import { Button, Popup } from "../../../../components/ui";
-import { useManageCategories } from "../../../../hooks/admin/useCategory";
+import { useManageCategories } from "../../../../hooks/admin/useCategoryHook";
 
 const DeleteCategoryPopup = ({ isOpen, handleClose, categoryId }) => {
   const { deleteCategory, isDeleting } = useManageCategories();

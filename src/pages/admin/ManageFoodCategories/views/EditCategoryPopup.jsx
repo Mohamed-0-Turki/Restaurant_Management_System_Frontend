@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { categorySchema } from "../../../../validation/categorySchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Field, Input, InputErrorMessage, Label, Popup } from "../../../../components/ui";
-import { useManageCategories } from "../../../../hooks/admin/useCategory";
+import { useManageCategories } from "../../../../hooks/admin/useCategoryHook";
 import { useEffect } from "react";
 
 const EditCategoryPopup = ({ isOpen, handleClose, defaultValues }) => {
