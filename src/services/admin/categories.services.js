@@ -33,3 +33,16 @@ export const createCategoryService = async (categoryName, token) => {
     throw error.response?.data || error;
   }
 };
+
+export const deleteCategoryService = async (id, token) => {
+  try {
+    const response = await axiosInstance.delete(`/admin/categories/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

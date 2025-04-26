@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { createCategoryService, fetchAllCategoriesService } from "../../services/admin/categories.services";
+import { createCategoryService, deleteCategoryService, fetchAllCategoriesService } from "../../services/admin/categories.services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { showToast } from "../../utils/index.utils";
 
@@ -37,9 +37,24 @@ const useManageCategories = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteCategoryService(id, token),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [CATEGORIES_QUERY_KEY] });
+      showToast("success", "Category deleted successfully");
+    },
+    onError: (error) => {
+      const message = error?.message || "Something went wrong";
+      showToast("error", message);
+    },
+  });
+
   return {
     addCategory: addMutation.mutate,
     isAdding: addMutation.isPending,
+
+    deleteCategory: deleteMutation.mutate,
+    isDeleting: deleteMutation.isPending,
   };
 };
 

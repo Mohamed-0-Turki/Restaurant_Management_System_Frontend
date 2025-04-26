@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { ActionCard, Button, CountCard, Header, Input, SectionHeader, Table, TableCell, TableRow } from '../../../components/ui'
 import { CirclePlus, CookingPot, Edit, Search, TrashIcon } from 'lucide-react'
-import { AddCategoryPopup } from './views';
+import { AddCategoryPopup, DeleteCategoryPopup } from './views';
 import { useGetAllCategories } from '../../../hooks/admin/useCategory';
 
 const ManageFoodCategories = () => {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [selectedID, setSelectedID] = useState(0);
 
   const { categories } = useGetAllCategories();
 
@@ -45,7 +47,8 @@ const ManageFoodCategories = () => {
                   <TableCell>{category.name}</TableCell>
                   <TableCell className='flex gap-3'>
                     <Button size='sm' variant='info' icon={<Edit className='w-full h-full' />} />
-                    <Button size='sm' icon={<TrashIcon className='w-full h-full' />} />
+                    <Button size='sm' icon={<TrashIcon className='w-full h-full' />} onClick={() => { setIsDeletePopupOpen(true) 
+                      setSelectedID(category.id)}} />
                   </TableCell>
                 </TableRow>
               ))
@@ -63,6 +66,11 @@ const ManageFoodCategories = () => {
       <AddCategoryPopup
         isOpen={isAddPopupOpen}
         handleClose={() => setIsAddPopupOpen(false)}
+      />
+      <DeleteCategoryPopup
+        isOpen={isDeletePopupOpen}
+        handleClose={() => setIsDeletePopupOpen(false)}
+        categoryId={selectedID}
       />
     </div>
   )
