@@ -23,7 +23,7 @@ const DeleteUserPopup = ({ isOpen, handleClose, userId }) => {
         <Button variant="cancel" type="button" fullWidth onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="danger" type="button" fullWidth onClick={handleDelete} isLoading={isDeleting}>
+        <Button type="button" fullWidth onClick={handleDelete} isLoading={isDeleting}>
           Delete
         </Button>
       </div>

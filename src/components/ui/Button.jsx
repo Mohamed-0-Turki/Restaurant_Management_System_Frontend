@@ -15,7 +15,7 @@ const ButtonVariants = cva(
         success: "bg-[#3FA34D] text-white hover:bg-[#2e813b]", // earthy green
         danger: "bg-[#8B1E3F] text-white hover:bg-[#6b172f]", // wine red
         cancel: "bg-[#B0B0B0] text-black hover:bg-[#999999]", // neutral gray
-        black: "bg-[#1B1B1E] text-white hover:bg-[#3A3A3A]", // clean dark
+        black: "bg-[#1f1f23] text-white hover:bg-[#3A3A3A]", // clean dark
         outline:
           "bg-transparent border-2 border-[#D7263D] text-[#D7263D] hover:bg-[#D7263D] hover:text-white", // outline red
       },

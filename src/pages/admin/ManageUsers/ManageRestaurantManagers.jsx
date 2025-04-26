@@ -39,7 +39,6 @@ const ManageRestaurantManagers = () => {
             iconColor="text-white"
             title="View Customers"
             description="Click below to view all registered customers"
-            className="flex-1"
           >
             <Button fullWidth onClick={() => navigate("/admin/customers")} variant='info'>
               Go to Customers
@@ -52,7 +51,6 @@ const ManageRestaurantManagers = () => {
             iconColor="text-white"
             title="View Restaurant Managers"
             description="Click below to view all restaurant managers"
-            className="flex-1"
           >
             <Button fullWidth onClick={() => navigate("/admin/restaurant-managers")} variant='success'>
               Go to Managers

@@ -32,12 +32,12 @@ const ManageFoodCategories = () => {
         />
         <ActionCard
           icon={<CirclePlus />}
-          iconBgColor="bg-[#D7263D]"
+          iconBgColor="bg-[#1f1f23]"
           iconColor="text-[#ffffff]"
           title="Add New Category"
           description="Click the button below to add a new food category"
         >
-          <Button fullWidth onClick={() => setIsAddPopupOpen(true)}>
+          <Button fullWidth onClick={() => setIsAddPopupOpen(true)} variant='black'>
             Add Category
           </Button>
         </ActionCard>
