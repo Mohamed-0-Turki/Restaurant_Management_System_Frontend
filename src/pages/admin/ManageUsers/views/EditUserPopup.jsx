@@ -13,6 +13,8 @@ const EditUserPopup = ({ isOpen, handleClose, defaultValues }) => {
       name: defaultValues?.name || '',
       email: defaultValues?.email || '',
     },
+    mode: "onChange", // Trigger validation on field change
+
   });
 
   const { updateUser, isUpdating } = useManageUsers();

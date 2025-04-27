@@ -44,7 +44,7 @@ const Popup = ({ isOpen, closeModal, title, description, children }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-1 rtl:font-cario ltr:font-noto">
       <div
         ref={panelRef}
-        className="max-h-[700px] max-w-[800px] min-w-88 overflow-auto bg-white rounded-2xl p-4 shadow-md transform transition duration-300 scale-100 opacity-100"
+        className="max-h-[700px] max-w-[600px] w-full min-w-88 overflow-auto bg-white rounded-2xl p-4 shadow-md transform transition duration-300 scale-100 opacity-100"
       >
         {title && <h2 className="text-lg font-bold capitalize">{title}</h2>}
         {description && <p className="text-gray-500">{description}</p>}

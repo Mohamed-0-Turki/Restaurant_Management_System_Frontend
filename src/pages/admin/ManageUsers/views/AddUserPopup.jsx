@@ -7,6 +7,8 @@ import { useManageUsers } from "../../../../hooks/admin/useUserHook";
 const AddUserPopup = ({ isOpen, handleClose }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(userSchema),
+    mode: "onChange", // Trigger validation on field change
+
   });
 
   const { addUser, isAdding } = useManageUsers();

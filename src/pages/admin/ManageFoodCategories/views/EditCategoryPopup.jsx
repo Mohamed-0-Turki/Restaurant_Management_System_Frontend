@@ -10,7 +10,8 @@ const EditCategoryPopup = ({ isOpen, handleClose, defaultValues }) => {
     resolver: yupResolver(categorySchema),
     defaultValues: {
       name: defaultValues?.name || ""
-    }
+    },
+    mode: "onChange", // Trigger validation on field change
   });
 
   const { updateCategory, isUpdating } = useManageCategories();

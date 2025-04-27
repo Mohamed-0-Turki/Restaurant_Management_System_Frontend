@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { ActionCard, Button, CountCard, Header, SectionHeader, Table, TableCell, TableRow } from '../../../components/ui'
-import { CirclePlus, Edit, TrashIcon, UserCog, Users } from 'lucide-react'
+import React, { useState, useMemo } from 'react';
+import { ActionCard, Button, CountCard, Header, Input, SectionHeader, Table, TableCell, TableRow } from '../../../components/ui';
+import { CirclePlus, Edit, TrashIcon, UserCog, Users, Search, ArrowDownUp } from 'lucide-react';
 import { useGetAllUsers } from '../../../hooks/admin/useUserHook';
 import { DeleteUserPopup, EditUserPopup } from './views';
 import { useNavigate } from 'react-router';
@@ -14,12 +14,37 @@ const ManageCustomers = () => {
   const [selectedID, setSelectedID] = useState(0);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const { users } = useGetAllUsers("Customer"); // 🛑 لاحظ هنا بدل Manager صارت Customer
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortAsc, setSortAsc] = useState(true);
+
+  const { users } = useGetAllUsers("Customer");
 
   const handleEditClick = (user) => {
     setSelectedUser(user);
     setIsEditPopupOpen(true);
   };
+
+  const filteredAndSortedUsers = useMemo(() => {
+    let filtered = users;
+
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(user =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Apply sorting
+    filtered = [...filtered].sort((a, b) => {
+      if (sortAsc) {
+        return a.id - b.id;
+      } else {
+        return b.id - a.id;
+      }
+    });
+
+    return filtered;
+  }, [users, searchTerm, sortAsc]);
 
   return (
     <div className="sm:p-5 p-3 space-y-5">
@@ -32,6 +57,7 @@ const ManageCustomers = () => {
           count={users.length}
           icon={<CirclePlus />}
         />
+        
         <div className="flex flex-col sm:flex-row gap-4 mx-auto w-full max-w-fit">
           <ActionCard
             icon={<Users />}
@@ -62,10 +88,31 @@ const ManageCustomers = () => {
       <div className="bg-white shadow-md space-y-5 p-5 rounded-lg">
         <SectionHeader title="Manage Customers" description="Here you can view and manage all registered customers." />
 
+        {/* Search and Sort controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <div className="flex items-center w-full sm:w-1/2">
+            <Input
+              placeholder="Search by name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              icon={<Search className="text-gray-400" />}
+            />
+          </div>
+
+          <Button
+            variant="outline"
+            onClick={() => setSortAsc(!sortAsc)}
+            icon={<ArrowDownUp />}
+            className="whitespace-nowrap"
+          >
+            Sort ({sortAsc ? "Asc" : "Desc"})
+          </Button>
+        </div>
+
         <div className="w-full overflow-x-auto">
           <Table columns={["#ID", "Name", "Email", "Role", "Action"]}>
-            {users.length > 0 ? (
-              users.map((user, index) => (
+            {filteredAndSortedUsers.length > 0 ? (
+              filteredAndSortedUsers.map((user, index) => (
                 <TableRow key={index}>
                   <TableCell>{user.id}</TableCell>
                   <TableCell>{user.name}</TableCell>
@@ -100,6 +147,7 @@ const ManageCustomers = () => {
         </div>
       </div>
 
+      {/* Popups */}
       <EditUserPopup
         isOpen={isEditPopupOpen}
         handleClose={() => setIsEditPopupOpen(false)}
@@ -111,7 +159,7 @@ const ManageCustomers = () => {
         userId={selectedID}
       />
     </div>
-  )
+  );
 }
 
 export default ManageCustomers;

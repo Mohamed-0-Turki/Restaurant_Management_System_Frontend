@@ -7,6 +7,7 @@ import { useManageCategories } from "../../../../hooks/admin/useCategoryHook";
 const AddCategoryPopup = ({ isOpen, handleClose }) => {
   const { register, handleSubmit: formSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(categorySchema),
+    mode: "onChange", // Trigger validation on field change
   });
 
   const { addCategory, isAdding } = useManageCategories();
