@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import { useSelector } from 'react-redux';
 import AdminSidebar from './AdminSidebar';
+import ManagerSidebar from './ManagerSidebar';
 
 const RootLayout = () => {
   const { role } = useSelector((state) => state.auth);  // Now inside a component
@@ -13,6 +14,7 @@ const RootLayout = () => {
     <div className="flex min-h-screen">
 
       {role === "admin" && <AdminSidebar /> }
+      {role === "manager" && <ManagerSidebar /> }
 
       {/* Main Content Wrapper */}
       <div className="flex flex-col w-full">

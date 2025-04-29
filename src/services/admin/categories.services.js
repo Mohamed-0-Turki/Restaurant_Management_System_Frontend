@@ -2,7 +2,7 @@ import axiosInstance from "../../config/axios.config";
 
 export const fetchAllCategoriesService = async (token) => {
   try {
-    const response = await axiosInstance.get("/admin/categories/all", {
+    const response = await axiosInstance.get("/categories/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -25,7 +25,6 @@ export const createCategoryService = async (categoryName, token) => {
         },
       }
     );
-    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);

@@ -1,1 +1,1 @@
-console.log("manager");
+export { default as ManageMenuItemsPage } from "./MenuItems"

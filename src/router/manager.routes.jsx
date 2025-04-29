@@ -1,6 +1,7 @@
 import { Route } from "react-router";
 import { ProtectedRoute } from "../components/auth";
 import { RootLayout } from "../pages/layouts";
+import { ManageMenuItemsPage } from "../pages/manager";
 
 export const managerRoutes = (isLoggedIn, userRole) => (
   <>
@@ -12,7 +13,9 @@ export const managerRoutes = (isLoggedIn, userRole) => (
         </ProtectedRoute>
       } 
   >
-    <Route path="/manager" element={<h1>manager</h1>} />
+    <Route path="/manager/dashboard" element={<h1>dashboard</h1>} />
+
+    <Route path="/manager/menu-items" element={<ManageMenuItemsPage />} />
   </Route>
   </>
 );
