@@ -1,38 +1,12 @@
 import { Search } from "lucide-react";
 import { useState } from "react";
 import { Header, Input, RestaurantCard } from "../../../components/ui";
-import { foodDishImage } from "../../../assets";
+import { useGetAllRestaurantsForCustomer } from "../../../hooks/customer/useRestaurantHook";
 
 const Restaurants = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const restaurants = [
-    {
-      name: 'Saffron Delight',
-      location: 'Downtown, Cairo',
-      description: 'Experience the finest blend of spices and culinary traditions.',
-      image: foodDishImage,
-      link: "/restaurants/1/menu"
-    },
-    {
-      name: 'La Piazza',
-      location: 'Zamalek, Cairo',
-      description: 'Enjoy the authentic taste of Italian cuisine in a cozy setting.',
-      image: foodDishImage,
-    },
-    {
-      name: 'Sakura House',
-      location: 'New Cairo',
-      description: 'Delight in fresh sushi and Japanese classics made with care.',
-      image: foodDishImage,
-    },
-    {
-      name: 'Burger Yard',
-      location: 'Maadi',
-      description: 'The juiciest burgers in town with a side of crunchy fries.',
-      image: foodDishImage,
-    },
-  ];
+  const { restaurants } = useGetAllRestaurantsForCustomer();
 
   const filteredRestaurants = restaurants.filter(restaurant =>
     restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
