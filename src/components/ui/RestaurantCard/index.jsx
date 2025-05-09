@@ -36,7 +36,7 @@ const RestaurantCard = ({ name, location, description, image, id = "" }) => {
               !!userId && role == "customer" &&
               <Button variant="success" icon={<Star className="w-full h-full" />} onClick={openReviewPopup} />
             }
-            <NavLink to={id} className={() => ""}>
+            <NavLink to={`/restaurants/${id}/tables`} className={() => ""}>
               <Button variant="outline" icon={<Utensils />}>
                 Book Table
               </Button>

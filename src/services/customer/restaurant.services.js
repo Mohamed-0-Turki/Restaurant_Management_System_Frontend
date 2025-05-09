@@ -34,7 +34,6 @@ export const addReviewToRestaurantService = async (restaurantId, reviewData, tok
         },
       }
     );
-    console.log(response);
     
     return response.data;
   } catch (error) {

@@ -32,7 +32,7 @@ const useGetRestaurantByIdForCustomer = (id) => {
   });
 
   return {
-    restaurant: data?.data?.restaurant || null,
+    categories: data?.data?.categories || null,
     isLoading,
   };
 };
