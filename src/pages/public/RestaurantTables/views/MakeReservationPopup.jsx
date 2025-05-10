@@ -47,17 +47,19 @@ const MakeReservationPopup = ({ isOpen, handleClose, restaurantId, table }) => {
       description="Please provide reservation details."
     >
       <form className="flex flex-col space-y-3 mt-4" onSubmit={handleSubmit(onSubmit)}>
-        <Field>
-          <Label>Table ID</Label>
-          <Input
-            {...register("tableId")}
-            type="number"
-            readOnly
-            placeholder="Table ID"
-            isError={!!errors["tableId"]}
-          />
-          {errors.tableId && <InputErrorMessage>{errors.tableId.message}</InputErrorMessage>}
-        </Field>
+        <div className="hidden">
+          <Field>
+            <Label>Table ID</Label>
+            <Input
+              {...register("tableId")}
+              type="number"
+              readOnly
+              placeholder="Table ID"
+              isError={!!errors["tableId"]}
+            />
+            {errors.tableId && <InputErrorMessage>{errors.tableId.message}</InputErrorMessage>}
+          </Field>
+        </div>
 
         <Field>
           <Label>Reservation Date</Label>
