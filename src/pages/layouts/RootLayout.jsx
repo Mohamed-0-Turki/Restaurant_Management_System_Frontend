@@ -5,6 +5,7 @@ import Footer from './Footer';
 import { useSelector } from 'react-redux';
 import AdminSidebar from './AdminSidebar';
 import ManagerSidebar from './ManagerSidebar';
+import Chat from '../../components/ui/Chat';
 
 const RootLayout = () => {
   const { role } = useSelector((state) => state.auth);  // Now inside a component
@@ -25,6 +26,7 @@ const RootLayout = () => {
         </div>
         <Footer />
       </div>
+      <Chat />
       <ScrollRestoration />
       <ToastContainer />
     </div>
