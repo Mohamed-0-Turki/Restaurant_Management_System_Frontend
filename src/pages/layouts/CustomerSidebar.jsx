@@ -70,7 +70,7 @@ const CustomerSidebar = () => {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-gray-800">{reservation.restaurantName}</h3>
                   <StatusBadge
-                    variant={reservation.status === "Pending" ? "neutral" : reservation.status === "Confirmed" ? "success" : "error"}
+                    variant={reservation.status === "Pending" ? "neutral" : reservation.status === "Accepted" ? "success" : "error"}
                     size="small"
                     shape="rounded"
                   >

@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, Users, CookingPot, ChefHat, HandHelping, Salad, Utensils, ChartLine, Pizza, Armchair } from "lucide-react"; // Import icons
+import { Home, Users, CookingPot, ChefHat, HandHelping, Salad, Utensils, ChartLine, Pizza, Armchair, NotebookPen } from "lucide-react"; // Import icons
 import { Sidebar, SidebarDropdown, SidebarItem } from "../../components/ui";
 
 const ManagerSidebar = () => {
@@ -13,6 +13,8 @@ const ManagerSidebar = () => {
       <SidebarItem name="Resturant Tables " icon={<Armchair size={20} />} to="/manager/tables" />
 
       <SidebarItem name="Menu Items" icon={<Pizza size={20} />} to="/manager/menu-items" />
+
+      <SidebarItem name="Reservations" icon={<NotebookPen size={20} />} to="/manager/reservations" />
     </Sidebar>
   );
 };
