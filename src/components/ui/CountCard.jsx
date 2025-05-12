@@ -19,7 +19,7 @@ const CountCard = ({
         </div>
 
         {/* Count Circle */}
-        <div className="flex items-center justify-center w-auto h-auto min-w-16 min-h-16 p-5 bg-[#D7263D] text-white rounded-full font-semibold text-2xl">
+        <div className="flex items-center justify-center w-auto h-auto min-w-16 min-h-16 p-5 bg-[#EF5B20] text-white rounded-full font-semibold text-2xl">
           {count}
         </div>
       </div>

@@ -12,7 +12,7 @@ const RootLayout = () => {
   const { role } = useSelector((state) => state.auth);  // Now inside a component
   const { isOpenCustomerSidebar } = useSelector((state) => state.reservations);  // Access sidebar state from reservations slice
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-[125vh]">
 
       {role === "admin" && <AdminSidebar />}
       {role === "manager" && <ManagerSidebar />}

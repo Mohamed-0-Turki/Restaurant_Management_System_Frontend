@@ -156,6 +156,7 @@ const ManageRestaurants = () => {
                       onClick={() => handleEditPopup(restaurant)} // Edit restaurant
                     />
                     <Button 
+                      variant="danger"
                       size='sm' 
                       icon={<TrashIcon className='w-full h-full' />} 
                       onClick={() => handleDeletePopup(restaurant.id)} // Delete restaurant action

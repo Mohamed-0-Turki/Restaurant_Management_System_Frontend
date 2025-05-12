@@ -51,6 +51,7 @@ const ApproveRejectReservationPopup = ({ isOpen, handleClose, reservationId }) =
           fullWidth
           onClick={handleReject}
           isLoading={isRejecting}
+          variant="danger"
         >
           Reject
         </Button>

@@ -43,7 +43,7 @@ const Menu = () => {
         {activeCategory?.map((item) => (
           <MenuItemCard
             key={item.id}
-            image={item.image || "/default-image.webp"}
+            image={item.imageUrl || "/default-image.webp"}
             title={item.name}
             description={item.description}
             price={item.price}

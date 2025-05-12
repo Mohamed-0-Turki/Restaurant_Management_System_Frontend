@@ -7,17 +7,17 @@ const ButtonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-[#D7263D] text-white hover:bg-[#A61B2B]", // vibrant red (appetizing)
+        primary: "bg-[#EF5B20] text-white hover:bg-[#d94e1b]", // vibrant red (appetizing)
         secondary: "bg-[#F29F05] text-white hover:bg-[#cc8604]", // golden yellow
         info: "bg-[#3772FF] text-white hover:bg-[#265ecc]", // bright blue
         warning: "bg-[#F46036] text-white hover:bg-[#d44b25]", // orange
         error: "bg-[#990000] text-white hover:bg-[#7a0000]", // deep red
         success: "bg-[#3FA34D] text-white hover:bg-[#2e813b]", // earthy green
-        danger: "bg-[#8B1E3F] text-white hover:bg-[#6b172f]", // wine red
+        danger: "bg-[#D7263D] text-white hover:bg-[#A61B2B]", // wine red
         cancel: "bg-[#B0B0B0] text-black hover:bg-[#999999]", // neutral gray
         black: "bg-[#1f1f23] text-white hover:bg-[#3A3A3A]", // clean dark
         outline:
-          "bg-transparent border-2 border-[#D7263D] text-[#D7263D] hover:bg-[#D7263D] hover:text-white", // outline red
+          "bg-transparent border-2 border-[#EF5B20] text-[#EF5B20] hover:bg-[#EF5B20] hover:text-white", // outline red
       },
       size: {
         xs: "text-xs px-2 py-1 h-6",
@@ -28,7 +28,7 @@ const ButtonVariants = cva(
       },
       shape: {
         square: "rounded-none",
-        rounded: "rounded-xl",
+        rounded: "rounded-lg",
         pill: "rounded-full",
       },
       fullWidth: {

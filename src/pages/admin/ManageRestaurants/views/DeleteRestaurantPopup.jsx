@@ -27,6 +27,7 @@ const DeleteRestaurantPopup = ({ isOpen, handleClose, restaurantId }) => {
           type="button"
           fullWidth={true}
           onClick={handleConfirmDelete}
+          variant="danger"
           isLoading={isDeleting}
         >
           Delete

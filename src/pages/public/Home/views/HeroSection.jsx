@@ -1,39 +1,36 @@
-import { foodDishImage } from "../../../../assets"
-import { Button } from "../../../../components/ui"
+import { bannerImage } from "../../../../assets";
+import { Button } from "../../../../components/ui";
 
 const HeroSection = () => {
   return (
-    <>
-      <section className="bg-gray-100 py-16 px-6 lg:px-20 flex flex-col-reverse lg:flex-row items-center justify-between">
-        {/* Left Text Content */}
-        <div className="lg:w-1/2 text-center lg:text-left">
-        <h1 className="text-4xl md:text-5xl font-semibold text-gray-800 mb-4">
-          Discover & Book Your<br />Favorite Restaurant with Yumme
+    <section
+      className="relative bg-cover bg-center bg-no-repeat py-36 px-6 lg:px-24 text-white"
+      style={{ backgroundImage: `url('${bannerImage}')` }}
+    >
+      {/* Overlay for better text contrast */}
+      <div className="absolute inset-0 bg-black/40 z-0" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+        <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+          Discover & Book Your<br />Favorite Restaurant with <span className="text-orange-500">Food Funday</span>
         </h1>
-        <p className="text-gray-600 text-lg mb-8">
-          Yumme helps you explore top restaurants and book your table instantly — simple, fast, and deliciously easy!
+        <p className="text-xl md:text-2xl text-gray-100">
+          Food Funday helps you explore top restaurants and book your table instantly — simple, fast, and deliciously easy!
         </p>
-          <div className="flex justify-center lg:justify-start items-center gap-4">
-            <Button shape="pill">
-              Book Table
-            </Button>
-            <Button shape="pill" variant="outline">
-              Contact Us
-            </Button>
-          </div>
+        <div className="flex justify-center gap-6 flex-wrap">
+          <Button>
+            Book Table
+          </Button>
+          <Button 
+            variant="outline" 
+          >
+            Contact Us
+          </Button>
         </div>
+      </div>
+    </section>
+  );
+};
 
-        {/* Right Image Content */}
-        <div className="lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
-          <img
-            src={foodDishImage}
-            alt="Delicious Food"
-            className="lg:w-96 md:w-80 lg:h-96 md:h-80 object-cover rounded-full shadow-xl"
-          />
-        </div>
-      </section>
-    </>
-  )
-}
-
-export default HeroSection
+export default HeroSection;

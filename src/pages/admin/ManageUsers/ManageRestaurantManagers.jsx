@@ -124,6 +124,7 @@ const ManageRestaurantManagers = () => {
                     />
                     <Button 
                       size='sm' 
+                      variant="danger"
                       icon={<TrashIcon className='w-full h-full' />} 
                       onClick={() => { 
                         setIsDeletePopupOpen(true);

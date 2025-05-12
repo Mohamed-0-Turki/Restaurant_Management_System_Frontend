@@ -15,7 +15,7 @@ const RestaurantCard = ({ name, location, description, imageUrl, id = "" }) => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row bg-white border-3 border-[#ffced5] hover:border-[#A61B2B] rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 max-w-4xl">
+      <div className="flex flex-col md:flex-row bg-white border-3 border-[#ffdcce] hover:border-[#d94e1b] rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 max-w-4xl">
         <img
           src={imageUrl || "/default-image.webp"}
           alt={name}

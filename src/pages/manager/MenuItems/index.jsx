@@ -132,6 +132,7 @@ const ManageMenuItems = () => {
                     />
                     <Button
                       size='sm'
+                      variant="danger"
                       icon={<TrashIcon className='w-full h-full' />}
                       onClick={() => {
                         setSelectedID(item.id);

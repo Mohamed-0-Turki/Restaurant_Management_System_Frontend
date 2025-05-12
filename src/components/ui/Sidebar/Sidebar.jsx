@@ -29,7 +29,7 @@ const Sidebar = ({ title, subtitle, children }) => {
           className="sm:w-12 sm:h-12 w-8 h-8 inline-flex items-center justify-center 
                     relative cursor-pointer font-semibold border-0 rounded-lg 
                     transition-colors duration-200 ease-in-out 
-                    bg-[#D7263D] text-[#ffffff] hover:bg-[#A61B2B]"
+                    bg-[#EF5B20] text-[#ffffff] hover:bg-[#d94e1b]"
           onClick={() => setIsSidebarOpen(true)}
           aria-expanded={isSidebarOpen}
           aria-label="Toggle Sidebar"
@@ -45,7 +45,7 @@ const Sidebar = ({ title, subtitle, children }) => {
                 className="sm:w-12 sm:h-12 w-8 h-8 inline-flex items-center justify-center 
                   relative cursor-pointer font-semibold rounded-lg 
                   transition-colors duration-200 ease-in-out 
-                  bg-transparent text-[#ffffff] hover:bg-[#A61B2B] hover:text-[#ffffff]"
+                  bg-transparent text-[#ffffff] hover:bg-[#d94e1b] hover:text-[#ffffff]"
                 onClick={() => setIsSidebarOpen(true)}
                 aria-expanded={isSidebarOpen}
                 aria-label="Toggle Sidebar"

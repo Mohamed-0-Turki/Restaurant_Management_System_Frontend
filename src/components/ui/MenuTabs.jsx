@@ -20,7 +20,7 @@ const MenuTabs = ({ tabs = [] }) => {
             onClick={() => handleTabClick(tab)}
             className={`pb-1 border-b-2 transition-colors duration-300 ${
               category === tab
-                ? "border-red-600 text-black"
+                ? "border-[#EF5B20] text-black"
                 : "border-gray-300 text-gray-700"
             }`}
           >
@@ -31,7 +31,7 @@ const MenuTabs = ({ tabs = [] }) => {
 
       {/* Menu Title */}
       <div className="text-sm text-gray-600 mb-1">MENU</div>
-      <div className="text-3xl text-red-600 font-menu tracking-widest">
+      <div className="text-3xl text-[#EF5B20] font-menu tracking-widest">
         {category.toUpperCase()}
       </div>
     </div>

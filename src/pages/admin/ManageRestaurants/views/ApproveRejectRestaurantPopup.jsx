@@ -45,6 +45,7 @@ const ApproveRejectRestaurantPopup = ({ isOpen, handleClose, restaurantId }) => 
           type="button"
           fullWidth={true}
           onClick={handleReject}
+          variant="danger"
           isLoading={isRejecting}
         >
           Reject

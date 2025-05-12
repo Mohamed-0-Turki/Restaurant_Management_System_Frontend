@@ -25,6 +25,7 @@ const DeleteMenuItemPopup = ({ isOpen, handleClose, menuItemId }) => {
         </Button>
         <Button
           type="button"
+          variant="danger"
           fullWidth={true}
           onClick={handleConfirmDelete}
           isLoading={isDeleting}
