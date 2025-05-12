@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Field, Input, InputErrorMessage, Label, Popup } from "../../../../components/ui";
 import { useManageRestaurants } from "../../../../hooks/admin/useRestaurantHook";
 import { getRestaurantSchema } from "../../../../validation/RestaurantSchema";
+import UploadRestaurantPhoto from "./UploadRestaurantPhoto";
 
 const EditRestaurantPopup = ({ isOpen, handleClose, restaurant }) => {
   const {
@@ -15,6 +16,9 @@ const EditRestaurantPopup = ({ isOpen, handleClose, restaurant }) => {
     resolver: yupResolver(getRestaurantSchema(true)), // Pass `true` for update
     mode: "onChange", // Trigger validation on field change
   });
+
+  console.log(restaurant?.id);
+  
 
   const { updateRestaurant, isUpdating } = useManageRestaurants();
 
@@ -55,7 +59,10 @@ const EditRestaurantPopup = ({ isOpen, handleClose, restaurant }) => {
       title="Edit Restaurant"
       description="Please update the restaurant details."
     >
-      <form className="flex flex-col space-y-3 mt-4" onSubmit={formSubmit(onSubmit)}>
+      <UploadRestaurantPhoto restaurantId={restaurant?.id} />
+
+      <form className="flex flex-col space-y-4 mt-4" onSubmit={formSubmit(onSubmit)}>
+        <h2 className="text-xl font-semibold">Upload Restaurant Details</h2>
         <Field>
           <Label>Restaurant Name</Label>
           <Input

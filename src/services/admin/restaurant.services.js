@@ -114,3 +114,22 @@ export const updateRestaurantService = async (id, data, token) => {
     throw error.response?.data || error;
   }
 };
+
+// Upload restaurant photo
+export const uploadRestaurantPhotoService = async (id, formData, token) => {
+  try {
+    const response = await axiosInstance.post(
+      `/admin/restaurants/photo/${id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

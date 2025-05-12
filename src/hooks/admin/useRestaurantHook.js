@@ -8,7 +8,8 @@ import {
   fetchAllRestaurantsService,
   fetchRestaurantByIdService,
   rejectRestaurantService,
-  updateRestaurantService
+  updateRestaurantService,
+  uploadRestaurantPhotoService
 } from "../../services/admin/restaurant.services";
 
 const RESTAURANTS_QUERY_KEY = "restaurants";
@@ -135,6 +136,24 @@ const useManageRestaurants = () => {
     },
   });
 
+  const uploadPhotoMutation = useMutation({
+    mutationFn: ({ id, formData }) => uploadRestaurantPhotoService(id, formData, token),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [RESTAURANTS_QUERY_KEY] });
+      showToast("success", "Photo uploaded successfully");
+    },
+    onError: (error) => {
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach((err) => {
+          showToast("error", err);
+        });
+      } else {
+        showToast("error", "Failed to upload photo. Please try again.");
+      }
+    },
+  });
+  
+
   return {
     addRestaurant: addMutation.mutate,
     isAdding: addMutation.isPending,
@@ -150,6 +169,10 @@ const useManageRestaurants = () => {
 
     updateRestaurant: updateMutation.mutate,
     isUpdating: updateMutation.isLoading,
+
+    uploadPhoto: uploadPhotoMutation.mutate,
+    isUploadingPhoto: uploadPhotoMutation.isPending,
+
   };
 };
 
