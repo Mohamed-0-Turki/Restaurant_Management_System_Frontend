@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Field, Input, InputErrorMessage, Label, Popup } from "../../../../components/ui";
+import { Button, Field, Input, InputErrorMessage, Label, Popup } from "../../../components/ui";
 import { useEffect } from "react";
-import { useManageReservations } from "../../../../hooks/customer/useReservationHook";
-import { rescheduleReservationSchema } from "../../../../validation/rescheduleReservationSchema";
+import { useManageReservations } from "../../../hooks/customer/useReservationHook";
+import { rescheduleReservationSchema } from "../../../validation/rescheduleReservationSchema";
 
 const RescheduleReservationPopup = ({ isOpen, handleClose, defaultValues }) => {
+  console.log(defaultValues);
+  
   const {
     register,
     handleSubmit: formSubmit,
@@ -14,21 +16,17 @@ const RescheduleReservationPopup = ({ isOpen, handleClose, defaultValues }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(rescheduleReservationSchema),
-    defaultValues: {
-      newReservationDate: defaultValues?.newReservationDate || "",
-      newStartTime: defaultValues?.newStartTime || "",
-    },
     mode: "onChange",
   });
 
-  const { rescheduleReservation, isRescheduling } = useManageReservations(defaultValues?.id);
+  const { rescheduleReservation, isRescheduling } = useManageReservations();
 
   const onSubmit = (data) => {
+    console.log(data);
+    
     rescheduleReservation(
-      {
-        newReservationDate: data.newReservationDate,
-        newStartTime: data.newStartTime,
-      },
+      { reservationID: defaultValues?.id, data }, // this matches your mutationFn signature
+
       {
         onSuccess: () => {
           reset();
@@ -57,7 +55,7 @@ const RescheduleReservationPopup = ({ isOpen, handleClose, defaultValues }) => {
           <Label>New Reservation Date</Label>
           <Input
             {...register("newReservationDate")}
-            type="datetime-local"
+            type="date"
             isError={!!errors["newReservationDate"]}
             placeholder="New Reservation Date"
           />

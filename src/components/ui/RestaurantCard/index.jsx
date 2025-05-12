@@ -5,7 +5,7 @@ import { NavLink } from "react-router";
 import AddReviewPopup from "./AddReviewPopup";
 import { useSelector } from "react-redux";
 
-const RestaurantCard = ({ name, location, description, image, id = "" }) => {
+const RestaurantCard = ({ name, location, description, imageUrl, id = "" }) => {
   const { userId, role } = useSelector((state) => state.auth);  // Now inside a component
 
   const [isReviewOpen, setIsReviewOpen] = useState(false);
@@ -17,7 +17,7 @@ const RestaurantCard = ({ name, location, description, image, id = "" }) => {
     <>
       <div className="flex flex-col md:flex-row bg-white border-3 border-[#ffced5] hover:border-[#A61B2B] rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 max-w-4xl">
         <img
-          src={image || "/default-image.webp"}
+          src={imageUrl || "/default-image.webp"}
           alt={name}
           className="w-full md:w-1/2 h-64 object-cover"
         />

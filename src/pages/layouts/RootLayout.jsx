@@ -6,16 +6,17 @@ import { useSelector } from 'react-redux';
 import AdminSidebar from './AdminSidebar';
 import ManagerSidebar from './ManagerSidebar';
 import Chat from '../../components/ui/Chat';
+import CustomerSidebar from './CustomerSidebar';
 
 const RootLayout = () => {
   const { role } = useSelector((state) => state.auth);  // Now inside a component
-
-
+  const { isOpenCustomerSidebar } = useSelector((state) => state.reservations);  // Access sidebar state from reservations slice
   return (
     <div className="flex min-h-screen">
 
-      {role === "admin" && <AdminSidebar /> }
-      {role === "manager" && <ManagerSidebar /> }
+      {role === "admin" && <AdminSidebar />}
+      {role === "manager" && <ManagerSidebar />}
+      {role === "customer" && isOpenCustomerSidebar && <CustomerSidebar />}
 
       {/* Main Content Wrapper */}
       <div className="flex flex-col w-full">

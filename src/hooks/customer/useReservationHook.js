@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  fetchCustomerReservationsService,
   makeReservationService,
   rescheduleReservationService,
   deleteReservationService,
+  fetchCustomerReservationsService,
 } from "../../services/customer/reservations.services";
 import { showToast } from "../../utils";
 
@@ -20,7 +20,7 @@ export const useGetCustomerReservations = () => {
   });
 
   return {
-    reservations: data?.data || [],
+    reservations: data?.data?.reservations || [],
     isLoading,
   };
 };
@@ -51,6 +51,7 @@ export const useManageReservations = () => {
       showToast("success", "Reservation rescheduled successfully");
     },
     onError: (error) => {
+      
       if (error.errors && Array.isArray(error.errors)) {
         error.errors.forEach((err) => showToast("error", err));
       } else {

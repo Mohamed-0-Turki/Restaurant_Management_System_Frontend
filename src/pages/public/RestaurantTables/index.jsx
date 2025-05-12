@@ -4,7 +4,7 @@ import { LifeBuoy, Sofa } from "lucide-react";
 import { useRestaurantTables } from "../../../hooks/customer/useTableHook";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
-import { MakeReservationPopup } from "./views";
+import { MakeReservationPopup } from "../../customer/ManageReservations";
 
 const RestaurantTables = () => {
   const { userId, role } = useSelector((state) => state.auth);

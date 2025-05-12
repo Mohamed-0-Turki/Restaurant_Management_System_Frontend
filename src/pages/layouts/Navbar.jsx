@@ -2,15 +2,22 @@ import { NavLink, useNavigate } from "react-router";
 import { Button } from "../../components/ui";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
+import { CookingPot } from "lucide-react";
+import { toggleCustomerSidebar } from "../../store/slices/reservationSlice";
 
 const Navbar = () => {
-  const { userId } = useSelector((state) => state.auth);  // Accessing auth state from Redux
+  const { userId, role } = useSelector((state) => state.auth);  // Accessing auth state from Redux
   const dispatch = useDispatch();
   const navigate = useNavigate();  // Create the navigate function from React Router
 
   const handleLogout = () => {
     dispatch(logout()); // Dispatch the logout action
     navigate('/login');
+  };
+
+
+  const handleCookingPotClick = () => {
+    dispatch(toggleCustomerSidebar()); // Dispatch the toggle action when CookingPot is clicked
   };
 
   return (
@@ -31,9 +38,21 @@ const Navbar = () => {
 
         <div className="block space-x-3">
         {userId ? (
-          <Button size="md" shape="pill" onClick={handleLogout}>
-            logout
-          </Button>
+          <div className="flex items-center gap-3">
+
+            {role === "customer" && (
+              <Button
+                size="md"
+                icon={<CookingPot className="w-full h-full" />}
+                variant="outline"
+                shape="pill"
+                onClick={handleCookingPotClick} // Handle the click to toggle sidebar
+              />
+            )}
+            <Button size="md" shape="pill" onClick={handleLogout}>
+              logout
+            </Button>
+          </div>
         ) : (
           <>
             <NavLink to={"/choose-account"} className={() => ""}>

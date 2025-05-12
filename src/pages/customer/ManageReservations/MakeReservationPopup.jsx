@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Field, Input, InputErrorMessage, Label, Popup } from "../../../../components/ui";
-import { useManageReservations } from "../../../../hooks/customer/useReservationHook";
-import { makeReservationSchema } from "../../../../validation/makeReservationSchema";
+import { Button, Field, Input, InputErrorMessage, Label, Popup } from "../../../components/ui";
+import { useManageReservations } from "../../../hooks/customer/useReservationHook";
+import { makeReservationSchema } from "../../../validation/makeReservationSchema";
 
 const MakeReservationPopup = ({ isOpen, handleClose, restaurantId, table }) => {
   const {
