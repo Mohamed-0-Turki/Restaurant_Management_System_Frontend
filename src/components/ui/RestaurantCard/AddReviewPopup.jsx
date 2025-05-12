@@ -1,15 +1,18 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Popup from "../Popup";
-import { Field, Input, InputErrorMessage, Label, Textarea } from "../Form";
+import { Field, InputErrorMessage, Label, Textarea } from "../Form";
 import Button from "../Button";
 import { useManageRestaurantReviews } from "../../../hooks/customer/useRestaurantHook";
 import { reviewSchema } from "../../../validation/reviewSchema";
+import { Star } from "lucide-react"; // Or use any star icon you have
 
 const AddReviewPopup = ({ isOpen, handleClose, restaurantId }) => {
   const {
     register,
     handleSubmit: formSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm({
@@ -18,9 +21,14 @@ const AddReviewPopup = ({ isOpen, handleClose, restaurantId }) => {
   });
 
   const { addReview, isAdding } = useManageRestaurantReviews();
+  const [selectedRating, setSelectedRating] = useState(0);
+
+  const handleStarClick = (rating) => {
+    setSelectedRating(rating);
+    setValue("rating", rating); // set hidden input
+  };
 
   const onSubmit = (data) => {
-    
     addReview(
       {
         restaurantId,
@@ -33,6 +41,7 @@ const AddReviewPopup = ({ isOpen, handleClose, restaurantId }) => {
       {
         onSuccess: () => {
           reset();
+          setSelectedRating(0);
           handleClose();
         },
       }
@@ -48,15 +57,24 @@ const AddReviewPopup = ({ isOpen, handleClose, restaurantId }) => {
     >
       <form className="flex flex-col space-y-3 mt-4" onSubmit={formSubmit(onSubmit)}>
         <Field>
-          <Label>Rating (1 to 5)</Label>
-          <Input
-            {...register("rating")}
-            type="number"
-            min={1}
-            max={5}
-            placeholder="Rating"
-            isError={!!errors.rating}
-          />
+          <Label>Rating</Label>
+          <div className="flex gap-2">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <button
+                key={star}
+                type="button"
+                onClick={() => handleStarClick(star)}
+                className="focus:outline-none"
+              >
+                <Star
+                  className={`w-8 h-8 ${
+                    selectedRating >= star ? "fill-orange-400 stroke-orange-400" : "stroke-gray-400"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+          <input type="hidden" {...register("rating")} />
           {errors.rating && <InputErrorMessage>{errors.rating.message}</InputErrorMessage>}
         </Field>
 

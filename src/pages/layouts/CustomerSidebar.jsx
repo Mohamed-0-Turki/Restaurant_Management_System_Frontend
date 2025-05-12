@@ -34,6 +34,7 @@ const CustomerSidebar = () => {
     dispatch(toggleCustomerSidebar()); // Dispatch the toggle action when CookingPot is clicked
   };
 
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-full text-xl font-semibold text-gray-500">
