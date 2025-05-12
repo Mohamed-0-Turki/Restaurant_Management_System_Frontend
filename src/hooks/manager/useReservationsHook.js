@@ -3,7 +3,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { 
   fetchManagerReservationsService, 
   acceptReservationService, 
-  rejectReservationService 
+  rejectReservationService,
+  markAllPastReservationsFinishedService
 } from "../../services/manager/reservation.services";
 import { showToast } from "../../utils";
 
@@ -60,11 +61,29 @@ export const useManageManagerReservations = () => {
     },
   });
 
+  const markFinishMutation = useMutation({
+    mutationFn: () => markAllPastReservationsFinishedService(token),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [MANAGER_RESERVATIONS_QUERY_KEY] });
+      showToast("success", "All past reservations marked as finished.");
+    },
+    onError: (error) => {
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach((err) => showToast("error", err));
+      } else {
+        showToast("error", "Failed to mark reservations as finished.");
+      }
+    },
+  });
+
   return {
     acceptReservation: acceptMutation.mutate,
     isAccepting: acceptMutation.isPending,
 
     rejectReservation: rejectMutation.mutate,
     isRejecting: rejectMutation.isPending,
+
+    MarkAllReservationsFinished: markFinishMutation.mutate,
+    isFinishing: markFinishMutation.isPending,
   };
 };

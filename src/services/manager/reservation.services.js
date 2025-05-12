@@ -49,3 +49,23 @@ export const rejectReservationService = async (id, token) => {
     throw error.response?.data || error;
   }
 };
+
+// Mark all past reservations as finished
+export const markAllPastReservationsFinishedService = async (token) => {
+  try {
+    const response = await axiosInstance.put(
+      `/manager/reservations/mark-finished`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

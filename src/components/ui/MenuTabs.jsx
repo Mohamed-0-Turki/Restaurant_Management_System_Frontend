@@ -18,7 +18,7 @@ const MenuTabs = ({ tabs = [] }) => {
           <button
             key={tab}
             onClick={() => handleTabClick(tab)}
-            className={`pb-1 border-b-2 transition-colors duration-300 ${
+            className={`pb-1 border-b-2 transition-colors duration-300 cursor-pointer hover:text-[#EF5B20] ${
               category === tab
                 ? "border-[#EF5B20] text-black"
                 : "border-gray-300 text-gray-700"

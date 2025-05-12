@@ -44,7 +44,7 @@ const CustomerSidebar = () => {
   }
 
   return (
-    <div className="z-50 fixed top-0 ltr:left-0 rtl:right-0 h-full w-96 bg-white border-r border-gray-200 shadow-xl transform transition-transform duration-300 ease-in-out translate-x-0 opacity-100 overflow-y-auto">
+    <div className="z-50 fixed top-0 right-0 h-full w-96 bg-white border-l border-gray-200 shadow-xl transform transition-transform duration-300 ease-in-out translate-x-0 opacity-100 overflow-y-auto">
       <div className="p-6 relative">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold text-gray-800">My Reservations</h2>
@@ -71,7 +71,7 @@ const CustomerSidebar = () => {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-gray-800">{reservation.restaurantName}</h3>
                   <StatusBadge
-                    variant={reservation.status === "Pending" ? "neutral" : reservation.status === "Accepted" ? "success" : "error"}
+                    variant={reservation.status === "Pending" ? "info" : reservation.status === "Accepted" ? "success" : reservation.status === "Rejected" ? "error" : ""}
                     size="small"
                     shape="rounded"
                   >

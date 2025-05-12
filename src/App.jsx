@@ -8,7 +8,10 @@ import store from './store/store';
 const queryClient = new QueryClient();
 
 function AppWrapper() {
-  const { userId, role } = useSelector((state) => state.auth);  // Now inside a component
+  const { userId, role, token } = useSelector((state) => state.auth);  // Now inside a component
+
+  console.log(token);
+  
 
   return (
     <QueryClientProvider client={queryClient}>  {/* Wrap with QueryClientProvider */}
