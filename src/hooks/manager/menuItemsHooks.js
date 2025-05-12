@@ -7,7 +7,7 @@ import {
   updateMenuItemService,
   deleteMenuItemService
 } from "../../services/manager/menuItem.services";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils/";
 
 const MENU_ITEMS_QUERY_KEY = "menu-items";
 

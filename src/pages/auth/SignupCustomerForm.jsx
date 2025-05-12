@@ -4,7 +4,7 @@ import { signupCustomerSchema } from "../../validation/signupCustomerSchema";
 import { useForm } from "react-hook-form";
 import { registerCustomerService } from "../../services/auth.services";
 import { useNavigate } from "react-router";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils/";
 
 const SignupCustomerForm = () => {
   const navigate = useNavigate();  // Create the navigate function from React Router

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { createCategoryService, deleteCategoryService, fetchAllCategoriesService, updateCategoryService } from "../../services/admin/categories.services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils/";
 
 const CATEGORIES_QUERY_KEY = "categories";
 

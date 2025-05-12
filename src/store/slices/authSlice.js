@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginService } from "../../services/auth.services";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils/";
 
 // Retrieve token and user info from sessionStorage (if any)
 const getStoredToken = () => {

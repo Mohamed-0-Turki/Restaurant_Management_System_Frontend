@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { deleteUserService, fetchUsersByRoleService, updateUserService } from "../../services/admin/users.services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils/";
 
 const USERS_QUERY_KEY = "users";
 

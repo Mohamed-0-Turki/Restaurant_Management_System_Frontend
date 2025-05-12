@@ -5,7 +5,7 @@ import {
   createTableService, 
   deleteTableService 
 } from "../../services/manager/tables.services";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils/";
 
 const TABLES_QUERY_KEY = "tables";
 

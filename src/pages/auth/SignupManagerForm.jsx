@@ -11,7 +11,7 @@ import {
 import { signupManagerSchema } from "../../validation/signupManagerSchema";
 import { useForm } from "react-hook-form";
 import { registerManagerService } from "../../services/auth.services";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils/";
 import { useNavigate } from "react-router";
 
 const SignupManagerForm = () => {

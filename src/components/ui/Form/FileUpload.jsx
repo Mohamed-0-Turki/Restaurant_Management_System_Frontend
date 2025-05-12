@@ -1,6 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
 import { isImageFile } from "../../../utils";
 
 const FileUpload = ({
@@ -11,7 +9,6 @@ const FileUpload = ({
   validateFile,
   name = ""
 }) => {
-  const { t } = useTranslation();
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
 
@@ -69,25 +66,16 @@ const FileUpload = ({
               name={name}
             />
           </label>
-          <p className="pl-2">{t("fileUpload.dragAndDrop")}</p>
+          <p className="pl-2">or drag and drop</p>
         </div>
         <p className="text-xs text-gray-600 mt-2">
-          {t("fileUpload.allowedFiles", { accept: accept || "all" })}
+          Accepted file types: {accept || "all"}
         </p>
-        {error && <p className="text-sm text-red-500 mt-2">{t("fileUpload.errorMessage", { error })}</p>}
-        {file && !error && <p className="text-sm text-green-500 mt-2">{t("fileUpload.successMessage")}</p>}
+        {error && <p className="text-sm text-red-500 mt-2">Error: {error}</p>}
+        {file && !error && <p className="text-sm text-green-500 mt-2">File uploaded successfully!</p>}
       </div>
     </div>
   );
-};
-
-FileUpload.propTypes = {
-  onFileSelect: PropTypes.func,
-  accept: PropTypes.string,
-  icon: PropTypes.node,
-  successIcon: PropTypes.node,
-  validateFile: PropTypes.func,
-  name: PropTypes.string.isRequired
 };
 
 export default FileUpload;
