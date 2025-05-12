@@ -4,7 +4,7 @@ import { toggleCustomerSidebar } from "../../store/slices/reservationSlice"; // 
 import { format } from "date-fns"; // To format the date (optional)
 import { Button, StatusBadge } from "../../components/ui";
 import { DeleteReservationPopup, RescheduleReservationPopup } from "../customer/ManageReservations";
-import { RefreshCw, X } from "lucide-react"; // Import Lucide icons
+import { X } from "lucide-react"; // Import Lucide icons
 import { useGetCustomerReservations } from "../../hooks/customer/useReservationHook";
 
 const CustomerSidebar = () => {
