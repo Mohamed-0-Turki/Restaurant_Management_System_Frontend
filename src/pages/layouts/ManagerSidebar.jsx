@@ -15,6 +15,8 @@ const ManagerSidebar = () => {
       <SidebarItem name="Menu Items" icon={<Pizza size={20} />} to="/manager/menu-items" />
 
       <SidebarItem name="Reservations" icon={<NotebookPen size={20} />} to="/manager/reservations" />
+
+      <SidebarItem name="Orders" icon={<CookingPot size={20} />} to="/manager/orders" />
     </Sidebar>
   );
 };
