@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router";
-import { capitalizeFirstLetter } from "../../utils/index.utils";
+import { capitalizeFirstLetter } from "../../utils";
 
 const MenuTabs = ({ tabs = [] }) => {
   const newTabs = ["all", ...tabs];

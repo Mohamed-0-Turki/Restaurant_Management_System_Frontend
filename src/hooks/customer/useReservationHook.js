@@ -6,7 +6,7 @@ import {
   rescheduleReservationService,
   deleteReservationService,
 } from "../../services/customer/reservations.services";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils";
 
 const RESERVATIONS_QUERY_KEY = "customerReservations";
 

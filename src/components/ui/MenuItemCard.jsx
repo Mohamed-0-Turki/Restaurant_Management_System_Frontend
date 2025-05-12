@@ -1,6 +1,6 @@
 import { CookingPot } from "lucide-react";
 import Button from "./Button";
-import { truncateText } from "../../utils/index.utils";
+import { truncateText } from "../../utils";
 
 const MenuItemCard = ({ image, title, description, price }) => {
   return (

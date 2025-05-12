@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { showToast } from "../../utils/index.utils";
+import { showToast } from "../../utils";
 import { 
   fetchAllRestaurantsForCustomerService,
   fetchRestaurantByIdForCustomerService,

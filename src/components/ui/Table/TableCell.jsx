@@ -1,6 +1,6 @@
 import { Copy } from "lucide-react";
 import clsx from "clsx";
-import { showToast } from "../../../utils/index.utils";
+import { showToast } from "../../../utils";
 
 const TableCell = ({ label, children, className = "", ...rest }) => {
   
