@@ -7,6 +7,7 @@ import { DeleteReservationPopup, RescheduleReservationPopup } from "../customer/
 import { X } from "lucide-react"; // Import Lucide icons
 import { useGetCustomerReservations } from "../../hooks/customer/useReservationHook";
 import { NavLink } from "react-router";
+import { CancelOrderPopup } from "../customer/ManageOrders";
 
 const CustomerSidebar = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,12 @@ const CustomerSidebar = () => {
   const [selectedReservation, setSelectedReservation] = useState(null); // State for selected reservation
   const [isReschedulePopupOpen, setIsReschedulePopupOpen] = useState(false); // State to control the reschedule popup
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false); // State to control the delete popup visibility
-
+  const [isCancelOrderPopupOpen, setIsCancelOrderPopupOpen] = useState(false);
+  const openCancelOrderPopup = (reservation) => {
+    setSelectedReservation(reservation);
+    setIsCancelOrderPopupOpen(true);
+  };
+  
   const openReschedulePopup = (reservation) => {
     setSelectedReservation(reservation);
     setIsReschedulePopupOpen(true);
@@ -43,6 +49,9 @@ const CustomerSidebar = () => {
       </div>
     );
   }
+
+  console.log(reservations);
+  
 
   return (
     <div className="z-50 fixed top-0 right-0 h-full w-96 bg-white border-l border-gray-200 shadow-xl transform transition-transform duration-300 ease-in-out translate-x-0 opacity-100 overflow-y-auto">
@@ -106,7 +115,7 @@ const CustomerSidebar = () => {
                           <Button
                             size="sm"
                             variant="cancel"
-                            onClick={() => openReschedulePopup(reservation)} // Open reschedule popup
+                            onClick={() => openCancelOrderPopup(reservation)}
                           >
                             cancel Order
                           </Button>
@@ -154,6 +163,15 @@ const CustomerSidebar = () => {
           reservationId={selectedReservation.id}
         />
       )}
+
+    {isCancelOrderPopupOpen && selectedReservation?.order && (
+      <CancelOrderPopup
+        isOpen={isCancelOrderPopupOpen}
+        handleClose={closePopup}
+        orderId={selectedReservation.order.id}
+      />
+    )}
+
     </div>
   );
 };

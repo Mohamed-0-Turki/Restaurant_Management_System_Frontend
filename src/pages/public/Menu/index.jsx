@@ -3,6 +3,8 @@ import { Button, Header, MenuItemCard, MenuTabs, SectionHeader } from "../../../
 import { useState } from "react";
 import { useGetRestaurantByIdForCustomer } from "../../../hooks/customer/useRestaurantHook";
 import { Minus, Plus, TrashIcon } from "lucide-react";
+import { showToast } from "../../../utils";
+import { useManageCustomerOrders } from "../../../hooks/customer/useOrderHook";
 
 const Menu = () => {
   const location = useLocation();
@@ -13,6 +15,9 @@ const Menu = () => {
   const { categories, isLoading } = useGetRestaurantByIdForCustomer(restaurantID);
   const [activeTab, setActiveTab] = useState("");
   const [orderItems, setOrderItems] = useState([]);
+
+  const { makeOrder, isMakingOrder } = useManageCustomerOrders();
+
 
   if (isLoading) {
     return <div className="p-10 text-center text-lg">Loading menu...</div>;
@@ -65,7 +70,26 @@ const Menu = () => {
       .toFixed(2);
   };
 
-  console.log(orderItems);
+
+
+  const handleMakeOrder = () => {
+    const orderPayload = orderItems.map(item => ({
+      menuItemId: item.id,
+      quantity: item.quantity
+    }));
+  
+    const reservationId = queryParams.get("reservationID");
+  
+    if (!reservationId) {
+      return showToast("error", "Reservation ID is missing in the URL.");
+    }
+  
+    makeOrder({
+      restaurantId: restaurantID,
+      reservationId,
+      orderItems: orderPayload
+    });
+  };
   
 
   return (
@@ -125,6 +149,15 @@ const Menu = () => {
                 <span>Total</span>
                 <span className="text-green-700">${calculateTotal()}</span>
               </div>
+              <Button 
+                fullWidth 
+                onClick={handleMakeOrder} 
+                isLoading={isMakingOrder} 
+                variant="success"
+              >
+                Confirm Order
+              </Button>
+
             </div>
           ) : (
             <div className="text-lg text-gray-500">
