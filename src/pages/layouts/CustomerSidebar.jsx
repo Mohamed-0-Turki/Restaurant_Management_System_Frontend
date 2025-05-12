@@ -6,6 +6,7 @@ import { Button, StatusBadge } from "../../components/ui";
 import { DeleteReservationPopup, RescheduleReservationPopup } from "../customer/ManageReservations";
 import { X } from "lucide-react"; // Import Lucide icons
 import { useGetCustomerReservations } from "../../hooks/customer/useReservationHook";
+import { NavLink } from "react-router";
 
 const CustomerSidebar = () => {
   const dispatch = useDispatch();
@@ -90,13 +91,37 @@ const CustomerSidebar = () => {
                     <strong className="font-medium">Guests:</strong> {reservation.numberOfGuests || "N/A"}
                   </p>
                   <div className="flex gap-1">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      onClick={() => openReschedulePopup(reservation)} // Open reschedule popup
-                    >
-                      Reschedule
-                    </Button>
+                    {
+                      reservation.status === "Accepted" && (
+                        reservation.order == null ? (
+                          <NavLink className={() => ""} to={`/restaurants/${reservation.restaurantId}/menu?reservationID=${reservation.id}`}>
+                            <Button
+                              size="sm"
+                              variant="success"
+                            >
+                              Make Order
+                            </Button>
+                          </NavLink>
+                        ) : (
+                          <Button
+                            size="sm"
+                            variant="cancel"
+                            onClick={() => openReschedulePopup(reservation)} // Open reschedule popup
+                          >
+                            cancel Order
+                          </Button>
+                        )
+                      )
+                    }
+                    {reservation.status === "Pending" &&
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => openReschedulePopup(reservation)} // Open reschedule popup
+                      >
+                        Reschedule
+                      </Button>
+                    }
                     <Button
                       size="sm"
                       variant="danger"

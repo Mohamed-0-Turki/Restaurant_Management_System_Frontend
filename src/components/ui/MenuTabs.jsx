@@ -7,8 +7,11 @@ const MenuTabs = ({ tabs = [] }) => {
   const category = searchParams.get("category") || "all";
 
   const handleTabClick = (tab) => {
-    setSearchParams({ category: tab });
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("category", tab);
+    setSearchParams(newParams);
   };
+  
 
   return (
     <div className="w-75 sm:w-full text-center mt-10">
