@@ -5,6 +5,7 @@ import { Button, Field, Input, InputErrorMessage, Label, Popup, SelectBox } from
 import { useManageMenuItems } from "../../../../hooks/manager/menuItemsHooks";
 import { menuItemSchema } from "../../../../validation/menuItemSchema";
 import { useGetAllCategories } from "../../../../hooks/admin/useCategoryHook";
+import UploadMenuItemPhoto from "./UploadMenuItemPhoto";
 
 const EditMenuItemPopup = ({ isOpen, handleClose, defaultValues }) => {
   const { register, handleSubmit: formSubmit, reset, formState: { errors } } = useForm({
@@ -50,7 +51,10 @@ const EditMenuItemPopup = ({ isOpen, handleClose, defaultValues }) => {
       title="Edit Menu Item"
       description="Update the details of the menu item."
     >
+      <UploadMenuItemPhoto menuItemId={defaultValues?.id} />
+
       <form className="flex flex-col space-y-3 mt-4" onSubmit={formSubmit(onSubmit)}>
+        <h2 className="text-xl font-semibold">Upload Menu Item Details</h2>
         <Field>
           <Label>Name</Label>
           <Input

@@ -69,3 +69,22 @@ export const deleteMenuItemService = async (id, token) => {
     throw error.response?.data || error;
   }
 };
+
+// Upload menu item photo
+export const uploadMenuItemPhotoService = async (id, formData, token) => {
+  try {
+    const response = await axiosInstance.post(
+      `/manager/menu-items/photo/${id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

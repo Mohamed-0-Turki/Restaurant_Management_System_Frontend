@@ -5,7 +5,8 @@ import {
   fetchMenuItemByIdService,
   createMenuItemService,
   updateMenuItemService,
-  deleteMenuItemService
+  deleteMenuItemService,
+  uploadMenuItemPhotoService
 } from "../../services/manager/menuItem.services";
 import { showToast } from "../../utils/";
 
@@ -93,6 +94,23 @@ const useManageMenuItems = () => {
     },
   });
 
+  const uploadPhotoMutation = useMutation({
+    mutationFn: ({ id, formData }) => uploadMenuItemPhotoService(id, formData, token),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [MENU_ITEMS_QUERY_KEY] });
+      showToast("success", "Photo uploaded successfully");
+    },
+    onError: (error) => {
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach((err) => {
+          showToast("error", err);
+        });
+      } else {
+        showToast("error", "Failed to upload photo. Please try again.");
+      }
+    },
+  });
+
   return {
     addMenuItem: addMutation.mutate,
     isAdding: addMutation.isPending,
@@ -102,6 +120,9 @@ const useManageMenuItems = () => {
 
     deleteMenuItem: deleteMutation.mutate,
     isDeleting: deleteMutation.isPending,
+
+    uploadPhoto: uploadPhotoMutation.mutate,
+    isUploadingPhoto: uploadPhotoMutation.isPending,
   };
 };
 
