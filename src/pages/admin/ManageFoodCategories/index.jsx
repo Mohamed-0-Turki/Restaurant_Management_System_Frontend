@@ -81,12 +81,10 @@ const ManageFoodCategories = () => {
               icon={<Search className="text-gray-400" />}
             />
           </div>
-
           <Button
             variant="outline"
             onClick={() => setSortAsc(!sortAsc)}
             icon={<ArrowDownUp />}
-            className="whitespace-nowrap"
           >
             Sort ({sortAsc ? "Asc" : "Desc"})
           </Button>

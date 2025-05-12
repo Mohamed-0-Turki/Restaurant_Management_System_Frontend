@@ -1,7 +1,7 @@
 import { Route } from "react-router";
 import { ProtectedRoute } from "../components/auth";
 import { RootLayout } from "../pages/layouts";
-import { ManageCustomersPage, ManageFoodCategoriesPage, ManageRestaurantManagersPage, ManageRestaurantsPage } from "../pages/admin";
+import { ManageCustomersPage, ManageFoodCategoriesPage, ManageReservationsPage, ManageRestaurantManagersPage, ManageRestaurantsPage } from "../pages/admin";
 
 export const adminRoutes = (isLoggedIn, userRole) => (
   <>
@@ -19,7 +19,7 @@ export const adminRoutes = (isLoggedIn, userRole) => (
     <Route path="/admin/restaurants" element={<ManageRestaurantsPage />} />
     <Route path="/admin/food-categories" element={<ManageFoodCategoriesPage />} />
     <Route path="/admin/orders" element={<h1>Orders</h1>} />
-    <Route path="/admin/reservations" element={<h1>Reservations</h1>} />
+    <Route path="/admin/reservations/:restaurantID" element={<ManageReservationsPage />} />
     <Route path="/admin/support" element={<h1>Support</h1>} />
   </Route>
   </>

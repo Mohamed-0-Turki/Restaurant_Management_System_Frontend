@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { ActionCard, Button, CountCard, Header, Input, SectionHeader, StatusBadge, Table, TableCell, TableRow } from '../../../components/ui';
-import { CirclePlus, Home, Edit, Search, TrashIcon, ArrowDownUp, Wrench, Eye } from 'lucide-react';
+import { CirclePlus, Home, Edit, Search, TrashIcon, ArrowDownUp, Wrench, Eye, Utensils } from 'lucide-react';
 import { useGetAllRestaurants } from '../../../hooks/admin/useRestaurantHook';
 import { AddRestaurantPopup, DeleteRestaurantPopup, ShowRestaurantPopup, ApproveRejectRestaurantPopup, EditRestaurantPopup } from './views';
+import { NavLink } from 'react-router';
 
 const ManageRestaurants = () => {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
@@ -108,7 +109,6 @@ const ManageRestaurants = () => {
             variant="outline"
             onClick={handleSortToggle}  // Toggling sort direction
             icon={<ArrowDownUp />}
-            className="whitespace-nowrap"
           >
             Sort ({sortAsc ? "Asc" : "Desc"})
           </Button>
@@ -142,6 +142,13 @@ const ManageRestaurants = () => {
                       icon={<Eye className='w-full h-full' />} 
                       onClick={() => handleShowPopup(restaurant.id)} // Show restaurant details on click
                     />
+                    <NavLink to={`/admin/reservations/${restaurant.id}`}>
+                      <Button 
+                        size='sm' 
+                        variant='secondary' 
+                        icon={<Utensils className='w-full h-full' />} 
+                      />
+                    </NavLink>
                     <Button 
                       size='sm' 
                       variant='info' 

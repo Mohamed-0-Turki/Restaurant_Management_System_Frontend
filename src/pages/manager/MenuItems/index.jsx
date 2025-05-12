@@ -94,7 +94,6 @@ const ManageMenuItems = () => {
             variant="outline"
             onClick={() => setSortAsc(!sortAsc)}
             icon={<ArrowDownUp />}
-            className="whitespace-nowrap"
           >
             Sort ({sortAsc ? "Asc" : "Desc"})
           </Button>

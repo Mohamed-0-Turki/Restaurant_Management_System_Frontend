@@ -20,11 +20,6 @@ const AdminSidebar = () => {
 
       <SidebarItem name="Food Categories" icon={<CookingPot size={20} />} to="/admin/food-categories" />
 
-      <SidebarItem name="Orders" icon={<Salad size={20} />} to="/admin/orders" />
-
-      <SidebarItem name="Reservations" icon={<Utensils size={20} />} to="/admin/reservations" />
-
-      {/* Additional Sidebar Item */}
       <SidebarItem name="Support" icon={<HandHelping size={20} />} to="/admin/support" />
     </Sidebar>
   );
