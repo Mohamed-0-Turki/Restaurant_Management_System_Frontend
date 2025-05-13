@@ -1,30 +1,38 @@
 import StatusBar from "./StatusBar";
 import OrderItemList from "./OrderItemList";
 import StatusBadge from "./StatusBadge";
+import Button from "./Button";
 
 const statusVariantMap = {
-  Pending: "info",
+  Pending: "neutral",
   Preparing: "warning",
-  Ready: "success",
+  Ready: "info",
   Delivered: "success",
   Cancelled: "error",
 };
 
-const OrderCard = ({ order }) => {
+const OrderCard = ({ order, onEdit }) => {
   const { id, customerName, status, totalAmount, orderItems } = order;
-
   const variant = statusVariantMap[status] || "neutral";
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md border space-y-4 w-full max-w-2xl mx-auto">
-      <div className="flex justify-between items-start">
+    <div
+      className="
+        flex flex-col justify-between
+        bg-white p-4 sm:p-5 md:p-6 
+        rounded-xl shadow-md border 
+        space-y-4 
+        w-full 
+        h-full
+        transition-all duration-200 ease-in-out
+      "
+    >
+      <div className="flex justify-between items-start flex-wrap gap-2">
         <div>
-          <h2 className="text-xl font-semibold text-gray-800">Order #{id}</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Order #{id}</h2>
           <p className="text-sm text-gray-500">Customer: {customerName}</p>
         </div>
-        <StatusBadge variant={variant}>
-          {status}
-        </StatusBadge>
+        <StatusBadge variant={variant}>{status}</StatusBadge>
       </div>
 
       <OrderItemList items={orderItems} />
@@ -34,6 +42,12 @@ const OrderCard = ({ order }) => {
       </div>
 
       <StatusBar currentStatus={status} />
+
+      <div className="flex justify-end">
+        <Button variant="secondary" onClick={onEdit}>
+          Change Status
+        </Button>
+      </div>
     </div>
   );
 };

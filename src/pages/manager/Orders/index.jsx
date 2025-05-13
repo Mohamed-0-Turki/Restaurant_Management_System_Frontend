@@ -1,57 +1,85 @@
-import React from "react";
-import { OrderCard } from "../../../components/ui";
+import React, { useState, useMemo } from "react";
+import { OrderCard, Header, Input, Button } from "../../../components/ui";
+import { useGetManagerOrders } from "../../../hooks/manager/useOrdersHook";
+import { ChangeOrderStatusPopup } from "./views";
+import { Search, ArrowDownUp } from "lucide-react";
 
 const Orders = () => {
-  const orders = [
-    {
-      id: 1,
-      customerName: "Yael Buckley",
-      status: "Cancelled",
-      totalAmount: 610,
-      orderItems: [
-        { menuItemId: 3, menuItemName: "string", quantity: 1, unitPrice: null },
-        { menuItemId: 4, menuItemName: "string", quantity: 1, unitPrice: null },
-        { menuItemId: 8, menuItemName: "Kasper Middleton", quantity: 1, unitPrice: null },
-      ],
-    },
-    {
-      id: 2,
-      customerName: "Mohamed Tarek",
-      status: "Preparing",
-      totalAmount: 450,
-      orderItems: [
-        { menuItemId: 1, menuItemName: "Pizza Margherita", quantity: 2, unitPrice: 150 },
-        { menuItemId: 2, menuItemName: "Cheesy Garlic Bread", quantity: 1, unitPrice: 50 },
-      ],
-    },
-    {
-      id: 3,
-      customerName: "Sara Johnson",
-      status: "Delivered",
-      totalAmount: 320,
-      orderItems: [
-        { menuItemId: 5, menuItemName: "Caesar Salad", quantity: 1, unitPrice: 120 },
-        { menuItemId: 6, menuItemName: "Iced Tea", quantity: 2, unitPrice: 100 },
-      ],
-    },
-    {
-      id: 4,
-      customerName: "Liam Smith",
-      status: "Pending",
-      totalAmount: 200,
-      orderItems: [
-        { menuItemId: 7, menuItemName: "Beef Burger", quantity: 1, unitPrice: 100 },
-        { menuItemId: 8, menuItemName: "Fries", quantity: 2, unitPrice: 50 },
-      ],
-    },
-  ];
+  const { orders, isLoading } = useGetManagerOrders();
+
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortAsc, setSortAsc] = useState(true);
+
+  const openPopup = (order) => setSelectedOrder(order);
+  const closePopup = () => setSelectedOrder(null);
+
+  const filteredAndSortedOrders = useMemo(() => {
+    let filtered = orders;
+
+    if (searchTerm) {
+      filtered = filtered.filter((order) =>
+        order.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.id?.toString().includes(searchTerm)
+      );
+    }
+
+    filtered = [...filtered].sort((a, b) => {
+      return sortAsc ? a.id - b.id : b.id - a.id;
+    });
+
+    return filtered;
+  }, [orders, searchTerm, sortAsc]);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800">Orders</h1>
-      {orders.map((order) => (
-        <OrderCard key={order.id} order={order} />
-      ))}
+    <div className="p-6 mx-auto space-y-6">
+      <Header 
+        heading="Manage Orders" 
+        subtitle="Track, filter, and update order statuses" 
+      />
+
+      {/* Search and Sort Controls */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+        <div className="flex items-center w-full sm:w-1/2">
+          <Input
+            placeholder="Search by order ID or customer name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            icon={<Search className="text-gray-400" />}
+          />
+        </div>
+        <Button
+          variant="outline"
+          onClick={() => setSortAsc(!sortAsc)}
+          icon={<ArrowDownUp />}
+        >
+          Sort ({sortAsc ? "Asc" : "Desc"})
+        </Button>
+      </div>
+
+      {/* Orders List */}
+      {isLoading ? (
+        <p className="text-gray-500">Loading orders...</p>
+      ) : filteredAndSortedOrders.length > 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {filteredAndSortedOrders.map((order) => (
+            <OrderCard key={order.id} order={order} onEdit={() => openPopup(order)} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500">No orders found.</p>
+      )}
+
+
+      {/* Popup for Changing Status */}
+      {selectedOrder && (
+        <ChangeOrderStatusPopup
+          isOpen={!!selectedOrder}
+          handleClose={closePopup}
+          order={selectedOrder}
+          orderId={selectedOrder.id}
+        />
+      )}
     </div>
   );
 };
