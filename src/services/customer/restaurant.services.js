@@ -40,3 +40,16 @@ export const addReviewToRestaurantService = async (restaurantId, reviewData, tok
     throw error.response?.data || error;
   }
 };
+
+export const fetchRestaurantManagersService = async (token) => {
+  try {
+    const response = await axiosInstance.get("/customer/restaurants/managers", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
