@@ -61,7 +61,7 @@ const useGetRestaurantReviews = (restaurantId) => {
   const { data, isLoading } = useQuery({
     queryKey: ["restaurantReviews", restaurantId],
     queryFn: () => fetchReviewsForRestaurantService(restaurantId, token),
-    enabled: !!restaurantId && !!token,
+    enabled: !!restaurantId,
   });
 
   return {
