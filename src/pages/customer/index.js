@@ -1,1 +1,1 @@
-console.log("customer");
+export { default as MenuPage } from "./Menu"

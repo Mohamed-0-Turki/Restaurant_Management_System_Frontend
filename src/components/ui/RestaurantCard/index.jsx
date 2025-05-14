@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapPin, Star, Utensils } from "lucide-react";
+import { MapPin, Pizza, Star, Utensils } from "lucide-react";
 import Button from "../Button";
 import { NavLink } from "react-router";
 import AddReviewPopup from "./AddReviewPopup";
@@ -34,11 +34,16 @@ const RestaurantCard = ({ name, location, description, imageUrl, id = "" }) => {
           <div className="mt-4 flex justify-end gap-1">
             {
               !!userId && role == "customer" &&
-              <Button variant="success" icon={<Star className="w-full h-full" />} onClick={openReviewPopup} />
+              <Button variant="success" size="sm" icon={<Star className="w-full h-full" />} onClick={openReviewPopup} />
             }
             <NavLink to={`/restaurants/${id}/tables`} className={() => ""}>
-              <Button variant="outline" icon={<Utensils />}>
+              <Button variant="outline" size="sm" icon={<Utensils className="w-full h-full" />}>
                 Book Table
+              </Button>
+            </NavLink>
+            <NavLink to={`/restaurants/${id}/menu`} className={() => ""}>
+              <Button variant="outline" size="sm" icon={<Pizza className="w-full h-full" />}>
+                Menu
               </Button>
             </NavLink>
           </div>

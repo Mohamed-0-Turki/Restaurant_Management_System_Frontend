@@ -34,7 +34,7 @@ const MenuItemCard = ({ image, title, description, price, availability, onAdd })
               </Button>
             )
           ) : (
-            <Button fullWidth={true} size="sm" disabled variant="success">
+            <Button fullWidth={true} disabled variant="success">
               Login as Customer
             </Button>
           )}

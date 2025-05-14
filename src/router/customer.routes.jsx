@@ -1,6 +1,7 @@
 import { Route } from "react-router";
 import { ProtectedRoute } from "../components/auth";
 import { RootLayout } from "../pages/layouts";
+import { MenuPage } from "../pages/customer";
 
 export const customerRoutes = (isLoggedIn, userRole) => (
   <>
@@ -12,7 +13,7 @@ export const customerRoutes = (isLoggedIn, userRole) => (
         </ProtectedRoute>
       } 
   >
-    <Route path="/customer" element={<h1>customer</h1>} />
+      <Route path="/customer/restaurants/:restaurantID/menu" element={<MenuPage />} />
   </Route>
   </>
 );

@@ -103,7 +103,7 @@ const CustomerSidebar = () => {
                     {
                       reservation.status === "Accepted" && (
                         reservation.order == null ? (
-                          <NavLink className={() => ""} to={`/restaurants/${reservation.restaurantId}/menu?reservationID=${reservation.id}`}>
+                          <NavLink className={() => ""} to={`customer/restaurants/${reservation.restaurantId}/menu?reservationID=${reservation.id}`}>
                             <Button
                               size="sm"
                               variant="success"
