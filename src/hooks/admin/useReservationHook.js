@@ -31,7 +31,7 @@ export const useGetOrderById = (id) => {
   });
 
   return {
-    orders: data?.data?.orders || null,
+    orders: data?.data?.orders || [],
     isLoading,
   };
 };

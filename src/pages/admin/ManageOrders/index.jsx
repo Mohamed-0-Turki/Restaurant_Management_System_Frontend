@@ -5,11 +5,10 @@ import { useGetOrderById } from "../../../hooks/admin/useReservationHook";
 import { useParams } from "react-router";
 
 const Orders = () => {
-
   const { restaurantID } = useParams();
 
-  const { orders = [], isLoading } = useGetOrderById(restaurantID); // Fallback to an empty array
-  
+  const { orders, isLoading } = useGetOrderById(restaurantID);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [sortAsc, setSortAsc] = useState(true);
 
