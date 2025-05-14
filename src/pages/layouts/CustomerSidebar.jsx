@@ -1,68 +1,98 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { toggleCustomerSidebar } from "../../store/slices/reservationSlice"; // Import delete action
-import { format } from "date-fns"; // To format the date (optional)
+import { toggleCustomerSidebar } from "../../store/slices/reservationSlice";
+import { format } from "date-fns";
 import { Button, StatusBadge } from "../../components/ui";
 import { DeleteReservationPopup, RescheduleReservationPopup } from "../customer/ManageReservations";
-import { X } from "lucide-react"; // Import Lucide icons
+import { X } from "lucide-react";
 import { useGetCustomerReservations } from "../../hooks/customer/useReservationHook";
 import { NavLink } from "react-router";
 import { CancelOrderPopup } from "../customer/ManageOrders";
 
 const CustomerSidebar = () => {
   const dispatch = useDispatch();
-  const { reservations, loading } = useGetCustomerReservations(); // Access reservations from Redux state
-  const [selectedReservation, setSelectedReservation] = useState(null); // State for selected reservation
-  const [isReschedulePopupOpen, setIsReschedulePopupOpen] = useState(false); // State to control the reschedule popup
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false); // State to control the delete popup visibility
-  const [isCancelOrderPopupOpen, setIsCancelOrderPopupOpen] = useState(false);
-  const openCancelOrderPopup = (reservation) => {
-    setSelectedReservation(reservation);
-    setIsCancelOrderPopupOpen(true);
-  };
-  
-  const openReschedulePopup = (reservation) => {
-    setSelectedReservation(reservation);
-    setIsReschedulePopupOpen(true);
-  };
+  const { reservations, loading } = useGetCustomerReservations();
+  const [selectedReservation, setSelectedReservation] = useState(null);
+  const [popups, setPopups] = useState({
+    isReschedulePopupOpen: false,
+    isDeletePopupOpen: false,
+    isCancelOrderPopupOpen: false,
+  });
+  const [collapsedOrders, setCollapsedOrders] = useState({});
 
-  const openDeletePopup = (reservation) => {
+  const openPopup = (type, reservation) => {
     setSelectedReservation(reservation);
-    setIsDeletePopupOpen(true);
+    setPopups((prev) => ({ ...prev, [type]: true }));
   };
 
   const closePopup = () => {
     setSelectedReservation(null);
-    setIsReschedulePopupOpen(false);
-    setIsDeletePopupOpen(false);
+    setPopups({
+      isReschedulePopupOpen: false,
+      isDeletePopupOpen: false,
+      isCancelOrderPopupOpen: false,
+    });
   };
 
   const handleCloseSidebar = () => {
-    dispatch(toggleCustomerSidebar()); // Dispatch the toggle action when CookingPot is clicked
+    dispatch(toggleCustomerSidebar());
   };
 
+  const toggleCollapse = (reservationId) => {
+    setCollapsedOrders((prev) => ({
+      ...prev,
+      [reservationId]: prev[reservationId] ? false : true,
+    }));
+  };
+
+  console.log(reservations);
+  
+
+  const renderButtons = (reservation) => {
+    return (
+      <>
+        {reservation.status === "Accepted" && (
+          reservation.order == null ? (
+            <NavLink to={`customer/restaurants/${reservation.restaurantId}/menu?reservationID=${reservation.id}`}>
+              <Button size="sm" variant="success">
+                Make Order
+              </Button>
+            </NavLink>
+          ) : (
+            <Button size="sm" variant="cancel" onClick={() => openPopup("isCancelOrderPopupOpen", reservation)}>
+              Cancel Order
+            </Button>
+          )
+        )}
+        {reservation.status === "Pending" && (
+          <Button size="sm" variant="secondary" onClick={() => openPopup("isReschedulePopupOpen", reservation)}>
+            Reschedule
+          </Button>
+        )}
+        <Button size="sm" variant="danger" onClick={() => openPopup("isDeletePopupOpen", reservation)}>
+          Delete
+        </Button>
+      </>
+    );
+  };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-full text-xl font-semibold text-gray-500">
+        <div className="spinner"></div> {/* You can add a spinner component here */}
         Loading your reservations...
       </div>
     );
   }
-
-  console.log(reservations);
-  
 
   return (
     <div className="z-50 fixed top-0 right-0 h-full w-96 bg-white border-l border-gray-200 shadow-xl transform transition-transform duration-300 ease-in-out translate-x-0 opacity-100 overflow-y-auto">
       <div className="p-6 relative">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold text-gray-800">My Reservations</h2>
-
           <div className="flex space-x-3">
-            {/* Close Button using Lucide X icon */}
             <Button
-              onClick={handleCloseSidebar} // Close the sidebar
+              onClick={handleCloseSidebar}
               icon={<X size={20} className="w-full h-full" />}
               size="sm"
             />
@@ -81,17 +111,25 @@ const CustomerSidebar = () => {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-gray-800">{reservation.restaurantName}</h3>
                   <StatusBadge
-                    variant={reservation.status === "Pending" ? "info" : reservation.status === "Accepted" ? "success" : reservation.status === "Rejected" ? "error" : ""}
+                    variant={
+                      reservation.status === "Pending"
+                        ? "info"
+                        : reservation.status === "Accepted"
+                        ? "success"
+                        : reservation.status === "Rejected"
+                        ? "error"
+                        : ""
+                    }
                     size="small"
                     shape="rounded"
                   >
                     {reservation.status}
                   </StatusBadge>
                 </div>
+
                 <div className="space-y-2">
                   <p className="text-sm text-gray-600">
-                    <strong className="font-medium">Reservation Date:</strong>{" "}
-                    {format(new Date(reservation.reservationDate), 'MMMM dd, yyyy')}
+                    <strong className="font-medium">Reservation Date:</strong> {format(new Date(reservation.reservationDate), "MMMM dd, yyyy")}
                   </p>
                   <p className="text-sm text-gray-600">
                     <strong className="font-medium">Time:</strong> {reservation.startTime} - {reservation.endTime}
@@ -99,46 +137,49 @@ const CustomerSidebar = () => {
                   <p className="text-sm text-gray-600">
                     <strong className="font-medium">Guests:</strong> {reservation.numberOfGuests || "N/A"}
                   </p>
-                  <div className="flex gap-1">
-                    {
-                      reservation.status === "Accepted" && (
-                        reservation.order == null ? (
-                          <NavLink className={() => ""} to={`customer/restaurants/${reservation.restaurantId}/menu?reservationID=${reservation.id}`}>
-                            <Button
-                              size="sm"
-                              variant="success"
-                            >
-                              Make Order
-                            </Button>
-                          </NavLink>
-                        ) : (
-                          <Button
-                            size="sm"
-                            variant="cancel"
-                            onClick={() => openCancelOrderPopup(reservation)}
-                          >
-                            cancel Order
-                          </Button>
-                        )
-                      )
-                    }
-                    {reservation.status === "Pending" &&
+                  <div className="flex gap-1">{renderButtons(reservation)}</div>
+
+                  {reservation.order && reservation.order.orderItems.length > 0 && (
+                    <div className="mt-4">
                       <Button
                         size="sm"
                         variant="secondary"
-                        onClick={() => openReschedulePopup(reservation)} // Open reschedule popup
+                        onClick={() => toggleCollapse(reservation.id)}
                       >
-                        Reschedule
+                        {collapsedOrders[reservation.id] ? "Hide Order Items" : "Show Order Items"}
                       </Button>
-                    }
-                    <Button
-                      size="sm"
-                      variant="danger"
-                      onClick={() => openDeletePopup(reservation)} // Open delete popup
-                    >
-                      Delete
-                    </Button>
-                  </div>
+                      {collapsedOrders[reservation.id] && (
+                        <div className="mt-4 space-y-4">
+                          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                            {/* Order Status and Total Amount */}
+                            <div className="flex justify-between items-center mb-4">
+                              <p className="text-sm font-semibold text-gray-700">{reservation.order.status}</p>
+                              <p className="text-sm font-semibold text-gray-900">
+                                Total Amount: <span className="text-lg font-bold text-green-600">${reservation.order.totalAmount.toFixed(2)}</span>
+                              </p>
+                            </div>
+                            
+                            {/* Order Items List */}
+                            <ul className="space-y-3">
+                              {reservation.order.orderItems.map((item, index) => (
+                                <li key={index} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all">
+                                  <div className="flex justify-between items-center">
+                                    <div className="space-y-1">
+                                      <p className="text-sm text-gray-800 font-medium">Menu Item: <span className="text-gray-600">{item.menuItemName}</span></p>
+                                      <p className="text-sm text-gray-800 font-medium">Menu Item ID: <span className="text-gray-600">{item.menuItemId}</span></p>
+                                      <p className="text-sm text-gray-800 font-medium">Quantity: <span className="text-gray-600">{item.quantity}</span></p>
+                                      <p className="text-sm text-gray-800 font-medium">Unit Price: <span className="text-gray-600">${item.unitPrice.toFixed(2)}</span></p>
+                                    </div>
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      )}
+
+                    </div>
+                  )}
                 </div>
               </li>
             ))}
@@ -146,32 +187,28 @@ const CustomerSidebar = () => {
         )}
       </div>
 
-      {/* Reschedule Reservation Popup */}
-      {isReschedulePopupOpen && selectedReservation && (
+      {/* Popups */}
+      {popups.isReschedulePopupOpen && selectedReservation && (
         <RescheduleReservationPopup
-          isOpen={isReschedulePopupOpen}
+          isOpen={popups.isReschedulePopupOpen}
           handleClose={closePopup}
           defaultValues={selectedReservation}
         />
       )}
-
-      {/* Delete Reservation Popup */}
-      {isDeletePopupOpen && selectedReservation && (
+      {popups.isDeletePopupOpen && selectedReservation && (
         <DeleteReservationPopup
-          isOpen={isDeletePopupOpen}
+          isOpen={popups.isDeletePopupOpen}
           handleClose={closePopup}
           reservationId={selectedReservation.id}
         />
       )}
-
-    {isCancelOrderPopupOpen && selectedReservation?.order && (
-      <CancelOrderPopup
-        isOpen={isCancelOrderPopupOpen}
-        handleClose={closePopup}
-        orderId={selectedReservation.order.id}
-      />
-    )}
-
+      {popups.isCancelOrderPopupOpen && selectedReservation?.order && (
+        <CancelOrderPopup
+          isOpen={popups.isCancelOrderPopupOpen}
+          handleClose={closePopup}
+          orderId={selectedReservation.order.id}
+        />
+      )}
     </div>
   );
 };

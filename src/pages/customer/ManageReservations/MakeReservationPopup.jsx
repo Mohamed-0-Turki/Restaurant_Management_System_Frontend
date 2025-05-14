@@ -21,6 +21,7 @@ const MakeReservationPopup = ({ isOpen, handleClose, restaurantId, table }) => {
   const { makeReservation, isMaking } = useManageReservations();
 
   const onSubmit = (data) => {
+    console.log(data);
     makeReservation(
       { restaurantID: restaurantId, data }, // this matches your mutationFn signature
       {
