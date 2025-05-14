@@ -19,8 +19,6 @@ const AdminSidebar = () => {
       <SidebarItem name="Restaurants" icon={<ChefHat size={20} />} to="/admin/restaurants" />
 
       <SidebarItem name="Food Categories" icon={<CookingPot size={20} />} to="/admin/food-categories" />
-
-      <SidebarItem name="Support" icon={<HandHelping size={20} />} to="/admin/support" />
     </Sidebar>
   );
 };

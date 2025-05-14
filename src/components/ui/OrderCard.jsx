@@ -2,6 +2,7 @@ import StatusBar from "./StatusBar";
 import OrderItemList from "./OrderItemList";
 import StatusBadge from "./StatusBadge";
 import Button from "./Button";
+import { useSelector } from "react-redux";
 
 const statusVariantMap = {
   Pending: "neutral",
@@ -12,6 +13,8 @@ const statusVariantMap = {
 };
 
 const OrderCard = ({ order, onEdit }) => {
+  const { userId, role } = useSelector((state) => state.auth);  // Now inside a component
+
   const { id, customerName, status, totalAmount, orderItems } = order;
   const variant = statusVariantMap[status] || "neutral";
 
@@ -43,11 +46,13 @@ const OrderCard = ({ order, onEdit }) => {
 
       <StatusBar currentStatus={status} />
 
-      <div className="flex justify-end">
-        <Button variant="secondary" onClick={onEdit}>
-          Change Status
-        </Button>
-      </div>
+      {userId && role == "manager" &&
+        <div className="flex justify-end">
+          <Button variant="secondary" onClick={onEdit}>
+            Change Status
+          </Button>
+        </div>
+      }
     </div>
   );
 };
