@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { ActionCard, Button, CountCard, Header, Input, SectionHeader, StatusBadge, Table, TableCell, TableRow } from '../../../components/ui';
-import { CirclePlus, Home, Edit, Search, TrashIcon, ArrowDownUp, Wrench, Eye, Utensils } from 'lucide-react';
+import { CirclePlus, Home, Edit, Search, TrashIcon, ArrowDownUp, Wrench, Eye, Utensils, Apple } from 'lucide-react';
 import { useGetAllRestaurants } from '../../../hooks/admin/useRestaurantHook';
 import { AddRestaurantPopup, DeleteRestaurantPopup, ShowRestaurantPopup, ApproveRejectRestaurantPopup, EditRestaurantPopup } from './views';
 import { NavLink } from 'react-router';
@@ -147,6 +147,13 @@ const ManageRestaurants = () => {
                         size='sm' 
                         variant='secondary' 
                         icon={<Utensils className='w-full h-full' />} 
+                      />
+                    </NavLink>
+                    <NavLink to={`/admin/orders/${restaurant.id}`}>
+                      <Button 
+                        size='sm' 
+                        variant='cancel' 
+                        icon={<Apple  className='w-full h-full' />} 
                       />
                     </NavLink>
                     <Button 
