@@ -5,7 +5,8 @@ import {
   fetchAllRestaurantsForCustomerService,
   fetchRestaurantByIdForCustomerService,
   addReviewToRestaurantService,
-  fetchRestaurantManagersService
+  fetchRestaurantManagersService,
+  fetchReviewsForRestaurantService
 } from "../../services/customer/restaurant.services";
 
 const RESTAURANTS_QUERY_KEY = "restaurants";
@@ -53,6 +54,23 @@ const useGetRestaurantManagersForCustomer = () => {
   };
 };
 
+// Fetch all reviews for a specific restaurant
+const useGetRestaurantReviews = (restaurantId) => {
+  const { token } = useSelector((state) => state.auth);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["restaurantReviews", restaurantId],
+    queryFn: () => fetchReviewsForRestaurantService(restaurantId, token),
+    enabled: !!restaurantId && !!token,
+  });
+
+  return {
+    reviews: data?.data?.reviews || [],
+    isLoading,
+  };
+};
+
+
 // Manage review actions
 const useManageRestaurantReviews = () => {
   const { token } = useSelector((state) => state.auth);
@@ -84,4 +102,5 @@ export {
   useGetRestaurantByIdForCustomer,
   useManageRestaurantReviews,
   useGetRestaurantManagersForCustomer,
+  useGetRestaurantReviews
 };

@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Button, Header } from "../../../components/ui";
-import { LifeBuoy, Sofa } from "lucide-react";
+import { LifeBuoy, Sofa, Star } from "lucide-react";
 import { useRestaurantTables } from "../../../hooks/customer/useTableHook";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { MakeReservationPopup } from "../../customer/ManageReservations";
+import { useGetRestaurantReviews } from "../../../hooks/customer/useRestaurantHook";
 
 const RestaurantTables = () => {
   const { userId, role } = useSelector((state) => state.auth);
   const { restaurantID } = useParams();
   const { tables } = useRestaurantTables(restaurantID);
+  const { reviews, isLoading: isLoadingReviews } = useGetRestaurantReviews(restaurantID); // Fetch reviews
 
   // State to handle popup
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -20,14 +22,13 @@ const RestaurantTables = () => {
     setIsPopupOpen(true);
   };
 
-
   const handleClosePopup = () => {
     setSelectedTable(null);
     setIsPopupOpen(false);
   };
 
   return (
-    <div className="px-4 sm:px-8 md:px-16 py-10 space-y-8">
+    <div className="px-4 sm:px-8 md:px-16 py-10 space-y-12">
       <Header
         heading="Restaurant Tables"
         subtitle="Explore available tables and reserve your spot."
@@ -89,6 +90,42 @@ const RestaurantTables = () => {
           ))
         ) : (
           <p className="text-center text-gray-500 col-span-full">No tables found.</p>
+        )}
+      </div>
+
+      {/* Reviews Section */}
+      <div className="space-y-6">
+        <Header
+          heading="Customer Reviews"
+          subtitle="See what others are saying about this restaurant."
+        />
+
+        {isLoadingReviews ? (
+          <p className="text-center text-gray-500">Loading reviews...</p>
+        ) : reviews.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {reviews.map((review) => (
+              <div
+                key={review.id}
+                className="bg-white border border-gray-200 p-5 rounded-lg shadow-md"
+              >
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  ))}
+                  {[...Array(5 - review.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-gray-300" />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm">{review.comment}</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  {new Date(review.reviewDate).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-500">No reviews yet.</p>
         )}
       </div>
 

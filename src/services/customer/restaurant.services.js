@@ -53,3 +53,17 @@ export const fetchRestaurantManagersService = async (token) => {
     throw error.response?.data || error;
   }
 };
+
+// Get all reviews for a specific restaurant for the customer
+export const fetchReviewsForRestaurantService = async (restaurantId, token) => {
+  try {
+    const response = await axiosInstance.get(`/Customer/restaurants/${restaurantId}/reviews`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
