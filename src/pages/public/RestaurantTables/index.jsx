@@ -6,14 +6,16 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { MakeReservationPopup } from "../../customer/ManageReservations";
 import { useGetRestaurantReviews } from "../../../hooks/customer/useRestaurantHook";
+import { useSummarizeReviews } from "../../../hooks/useSummarizeReviews";
 
 const RestaurantTables = () => {
   const { userId, role } = useSelector((state) => state.auth);
   const { restaurantID } = useParams();
   const { tables } = useRestaurantTables(restaurantID);
-  const { reviews, isLoading: isLoadingReviews } = useGetRestaurantReviews(restaurantID); // Fetch reviews
+  const { reviews, isLoading: isLoadingReviews } = useGetRestaurantReviews(restaurantID);
 
-  // State to handle popup
+  const { summary, isLoading: isLoadingSummary } = useSummarizeReviews(reviews);
+  
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
 
@@ -34,6 +36,7 @@ const RestaurantTables = () => {
         subtitle="Explore available tables and reserve your spot."
       />
 
+      {/* Tables Display */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {tables.length > 0 ? (
           tables.map((table) => (
@@ -50,7 +53,7 @@ const RestaurantTables = () => {
                   ))}
                 </div>
 
-                {/* Table rectangle */}
+                {/* Table */}
                 <div className="w-40 h-20 bg-[#ffccd5] rounded-md flex items-center justify-center border border-[#A61B2B]">
                   <span className="text-[#A61B2B] font-semibold">{table.tableName}</span>
                 </div>
@@ -63,7 +66,7 @@ const RestaurantTables = () => {
                 </div>
               </div>
 
-              {/* Capacity Text */}
+              {/* Capacity */}
               <p className="text-lg font-medium text-gray-600 mt-2">
                 Capacity: {table.capacity}
               </p>
@@ -128,6 +131,45 @@ const RestaurantTables = () => {
           <p className="text-center text-gray-500">No reviews yet.</p>
         )}
       </div>
+
+      {/* Review Summary Section */}
+      {!isLoadingReviews && reviews.length > 0 && (
+        <div className="mt-10 space-y-4">
+          <Header
+            heading="Summary of Reviews"
+            subtitle="An AI-generated summary of what people are saying."
+          />
+          {isLoadingSummary ? (
+            <p className="text-center text-gray-500">Generating summary...</p>
+          ) : summary ? (
+            <div className=" border-l-4 bg-emerald-50 border-blue-500 text-blue-900 p-6 rounded-lg shadow-lg">
+              <div className="space-y-4">
+                <div>
+                  <span className="font-medium text-md text-gray-600">Average Rating:</span>
+                  <div className="flex items-center gap-1 text-blue-600">
+                    <span className="font-bold text-md">{summary.average_rating}</span>
+                    {/* You can replace this with a star icon or a custom rating bar */}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="font-medium text-md text-gray-600">Positive Overview:</span>
+                  <p className="text-md text-gray-700">{summary.positive_overview}</p>
+                </div>
+
+                <div>
+                  <span className="font-medium text-md text-gray-600">Negative Overview:</span>
+                  <p className="text-md text-gray-700">{summary.negative_overview}</p>
+                </div>
+              </div>
+
+            </div>
+
+          ) : (
+            <p className="text-center text-gray-400 italic">No summary available.</p>
+          )}
+        </div>
+      )}
 
       {/* Reservation Popup */}
       {selectedTable && (
