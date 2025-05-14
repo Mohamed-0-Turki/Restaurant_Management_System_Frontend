@@ -4,6 +4,10 @@ import { RootLayout } from "../pages/layouts";
 export const errorRoutes = (
     <Route path="/" element={<RootLayout />}>
       <Route
+        path="/unauthorized"
+        element={<h1>401 unauthorized</h1>}
+      />
+      <Route
         path="/forbidden"
         element={<h1>403 forbidden</h1>}
       />

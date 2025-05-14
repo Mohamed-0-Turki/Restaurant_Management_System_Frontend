@@ -27,7 +27,7 @@ const RootLayout = () => {
         </div>
         <Footer />
       </div>
-      <Chat />
+      {role === "customer" && <Chat />}
       <ScrollRestoration />
       <ToastContainer />
     </div>

@@ -23,9 +23,6 @@ const Menu = () => {
     return <div className="p-10 text-center text-lg">Loading menu...</div>;
   }
 
-  console.log(categories);
-  
-
   const tabNames = categories?.map((cat) => cat.name) || [];
 
   if (!activeTab && tabNames.length > 0) {
@@ -179,6 +176,7 @@ const Menu = () => {
               title={item.name}
               description={item.description}
               price={item.price}
+              availability={item.availability}
               onAdd={() => handleAddToOrder(item)}
             />
           ))}
