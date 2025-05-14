@@ -8,7 +8,6 @@ const ManagerSidebar = () => {
       {/* Sidebar Items */}
       <SidebarItem name="Home" icon={<Home size={20} />} to="/" />
 
-      <SidebarItem name="Dahsboard" icon={<ChartLine size={20} />} to="/manager/dashboard" />
 
       <SidebarItem name="Resturant Tables " icon={<Armchair size={20} />} to="/manager/tables" />
 

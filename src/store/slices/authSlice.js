@@ -47,6 +47,7 @@ const authSlice = createSlice({
       state.userId = null;
       // Clear the token and user data from sessionStorage
       sessionStorage.removeItem("token");
+      location.replace("/login")
     },
   },
   extraReducers: (builder) => {

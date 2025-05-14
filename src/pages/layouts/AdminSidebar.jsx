@@ -8,7 +8,6 @@ const AdminSidebar = () => {
       {/* Sidebar Items */}
       <SidebarItem name="Home" icon={<Home size={20} />} to="/" />
 
-      <SidebarItem name="Dahsboard" icon={<ChartLine size={20} />} to="/admin/dashboard" />
 
       {/* Sidebar Dropdown */}
       <SidebarDropdown name="Users" icon={<Users size={20} />} open={true}>
